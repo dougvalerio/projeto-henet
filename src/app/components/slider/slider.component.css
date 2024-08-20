@@ -1,0 +1,39 @@
+.container {
+    width: 100%;
+    background-color: #01477B;
+
+    min-height: 100vh;
+
+    padding: 2rem;
+}
+
+swiper-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 720px;
+    height: 1080px;
+  }
+
+  swiper-slide img {
+    display: block;
+    width: 100%;
+  }
+
+  .qrcode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 2rem;
+  }
+
+  .qrcode img {
+    width: 300px;
+  }
+

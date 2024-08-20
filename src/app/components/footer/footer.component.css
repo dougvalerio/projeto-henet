@@ -1,0 +1,9 @@
+.container {
+    width: 100%;
+    background-color: dodgerblue;
+    padding: 2rem;
+}
+
+.container h3 {
+    color: white;
+}

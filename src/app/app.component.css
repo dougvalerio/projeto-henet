@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+app-header {
+  flex-shrink: 0;
+}
+
+router-outlet {
+  flex: 1; /* Ajustado para ocupar o espaço disponível */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #01477B;
+}
+
+app-footer {
+  flex-shrink: 0;
+}
