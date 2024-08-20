@@ -17,9 +17,14 @@
   gap: 2rem;
 }
 
-.logo svg{
-  width: 150px;
-  height: 150px;
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  width: 15rem;
 }
 
 .navegacao ul{
