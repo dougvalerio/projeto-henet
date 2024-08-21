@@ -45,7 +45,7 @@ export class SliderComponent {
   }
 
   findAll(){
-    this.fotosService.getCarrosselImagens().subscribe(resposta => {
+    this.fotosService.getCarrosselFotos().subscribe(resposta => {
         this.ELEMENT_DATA = resposta;
         this.baixarImagens();
     }, error => {
@@ -111,7 +111,7 @@ buscarFotoServidor(id: any): Observable<string> {
   }
 
   carregarFotos() {
-    this.fotosService.getAllImagens().subscribe(
+    this.fotosService.getAllFotos().subscribe(
       (response) => {
         // Pegar as últimas 10 fotos, assumindo que o array esteja em ordem cronológica
         this.fotos = response.slice(-10).reverse();  // Inverter a ordem para exibir da mais recente para a mais antiga

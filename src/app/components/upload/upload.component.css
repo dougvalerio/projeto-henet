@@ -20,7 +20,7 @@
 }
 
 .carregar-img h1 {  
-  color: #FFF;
+  color: #01477B;
   font-size: 3rem;
   margin-bottom: 2rem;
 }
@@ -32,9 +32,9 @@
 .carregar-img label {
   display: inline-block;
   padding: 3rem 5rem;
-  color: #FFF;
+  color: #01477B;
   background-color: transparent;
-  border: 10px solid #FFF;
+  border: 10px solid #01477B;
   border-radius: 40px;
   cursor: pointer;
   font-size: 4rem;
@@ -43,6 +43,6 @@
 }
 
 .carregar-img label:hover {
-  background-color: #FFF;
-  color: #01477B;
+  background-color: #01477B;
+  color: #FFF;
 }
