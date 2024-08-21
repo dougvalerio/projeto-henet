@@ -53,7 +53,7 @@ export class SliderComponent {
         console.log('timestamp', timestamp);
         if (this.lastUpdatedTimestamp === null || timestamp > this.lastUpdatedTimestamp) {
           this.lastUpdatedTimestamp = timestamp;
-          this.findAll();
+          this.findAll();          
         }
       },
       (error) => {
@@ -80,11 +80,17 @@ export class SliderComponent {
         this.imagensCarregadas = results.filter(result => result != null);
         console.log('Todas as imagens foram baixadas e estão prontas para serem exibidas.');
         
-        // Atualizar o QR Code com a primeira imagem do carrossel
-        if (this.ELEMENT_DATA.length > 0) {
-          const firstImagem = this.ELEMENT_DATA[0];
-          this.buscarFotoQrCodeServidor(firstImagem.id);
-        }
+        this.currentQrCodeUrl = '../../../assets/qrcode-bot.png'; // URL inicial do QR Code
+
+        // Adicionar um delay de 10 segundos antes de buscar o QR Code
+        setTimeout(() => {
+          // Atualizar o QR Code com a primeira imagem do carrossel 
+          if (this.ELEMENT_DATA.length > 0) {
+            const firstImagem = this.ELEMENT_DATA[0];
+            this.buscarFotoQrCodeServidor(firstImagem.id);
+          }
+        }, 10000); // 10000 milissegundos = 10 segundos
+          
       },
       error: (err) => {
         console.error('Erro ao baixar uma ou mais imagens:', err);
@@ -119,17 +125,11 @@ export class SliderComponent {
         const reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onload = () => {
-          this.currentQrCodeUrl = '../../../assets/qrcode-bot.png'; // URL inicial do QR Code
-          
-          this.zone.runOutsideAngular(() => {
-            this.intervalId = window.setInterval(() => {
-              this.zone.run(() => {
-                this.currentQrCodeUrl = reader.result as string;
+          //this.currentQrCodeUrl = '../../../assets/qrcode-bot.png'; // URL inicial do QR Code
+
+          this.currentQrCodeUrl = reader.result as string;
           console.log('QR Code atualizado:', this.currentQrCodeUrl);
-              });
-            }, 10000);
-          });
-          
+                    
         };
       },
       (error) => {
