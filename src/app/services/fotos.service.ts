@@ -9,6 +9,7 @@
       export class FotosService {
 
         private apiUrl = 'http://177.38.244.53:9090/api/fotos';
+        //private apiUrl = 'http://localhost:8080/api/fotos';
 
         constructor(private http: HttpClient) { }
       
@@ -28,7 +29,7 @@
         // }
       
         // Método para fazer o GET de todas as fotos
-        getAllFotos(): Observable<Imagem[]> {
+        getAllImagens(): Observable<Imagem[]> {
           return this.http.get<Imagem[]>(`${this.apiUrl}`);
         }
       
