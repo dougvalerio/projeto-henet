@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FotosService } from '../../services/fotos.service';  // Importando o serviço
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Imagem } from '../../models/imagem';
+import { forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-galeria',
@@ -27,21 +28,27 @@ export class GaleriaComponent implements OnInit {
 
   carregarImagens(): void {
     this.fotosService.getAllImagens().subscribe((fotos: Imagem[]) => {
-      console.log("Exibir fotos", fotos)
+      console.log("Exibir fotos", fotos);
+      
       // Ordenar as fotos por ID em ordem decrescente
       fotos.sort((a, b) => b.id - a.id);
   
       // Limpa o array para evitar duplicação se o método for chamado novamente
       this.imagens = [];
   
-      // Itera sobre as fotos já ordenadas
-      fotos.forEach(foto => {
-        console.log("Teste: ", foto)
-        this.fotosService.getImagem(foto.id).subscribe((imagemBlob: Blob) => {
-          const objectURL = URL.createObjectURL(imagemBlob);
-          const sanitizedUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-          this.imagens.push(sanitizedUrl);
-        });
+      // Criar um array de observables para carregar todas as imagens
+      const observables = fotos.map(foto =>
+        this.fotosService.getImagem(foto.id).pipe(
+          map((imagemBlob: Blob) => {
+            const objectURL = URL.createObjectURL(imagemBlob);
+            return this.sanitizer.bypassSecurityTrustUrl(objectURL);
+          })
+        )
+      );
+  
+      // Esperar que todos os observables sejam concluídos antes de preencher o array de imagens
+      forkJoin(observables).subscribe((sanitizedUrls: SafeUrl[]) => {
+        this.imagens = sanitizedUrls;
       });
     });
   }
