@@ -1,6 +1,6 @@
 <div class="container">
   <mat-grid-list cols="4" rowHeight="5:7" gutterSize="10px">
-    <mat-grid-tile *ngFor="let imagem of imagens" (click)="openImagePopup(imagem)">
+    <mat-grid-tile *ngFor="let imagem of imagens; let i = index" (click)="openImagePopup(imagem, i + 1)">
       <img [src]="imagem" alt="Imagem da galeria">
     </mat-grid-tile>
   </mat-grid-list>
@@ -10,6 +10,7 @@
     <div class="popup-content">
       <button class="close-button" (click)="closeImagePopup()">✕</button>
       <img [src]="selectedImageSrc" alt="Imagem ampliada">
+      <img *ngIf="selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">  <!-- Imagem do QR code -->
     </div>
   </div>
 </div>

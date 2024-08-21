@@ -2,7 +2,8 @@
   width: 100%;
   background: url("../../../assets/BG-TOTEM-FIB24.png");
   padding: 3rem;
-  height: 100vh;
+  
+  min-height: 100vh;
 }
 
 mat-grid-tile {
@@ -50,17 +51,31 @@ mat-grid-tile:hover {
   border: 5px solid white;
 }
 
+.qrcode {
+  margin-top: 50px;
+  width: 70%;  /* O QR code será 20% da largura da imagem principal */
+  max-width: 350px;  /* Limite máximo de 150px para garantir que não fique muito grande */
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid white;  /* Adiciona uma borda ao QR code */
+}
+
+
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 20px;
+  position: fixed; /* Fixar no canto superior direito da tela */
+  top: 20px;      /* Distância do topo da tela */
+  right: 20px;    /* Distância da borda direita da tela */
+  padding: 10px;
   background: none;
   border: none;
   color: white;
-  font-size: 2rem;
+  font-size: 2.5rem; /* Aumentar o tamanho do "X" */
   cursor: pointer;
   outline: none;
+  z-index: 1100; /* Certifique-se de que o botão esteja acima do popup */
 }
 
 .close-button:hover {
