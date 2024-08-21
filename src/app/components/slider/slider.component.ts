@@ -20,6 +20,7 @@ export class SliderComponent {
   ELEMENT_DATA: Imagem[] = [];
   imagensCarregadas: string[] = []; // Lista para guardar as URLs das imagens em base64
 
+  qrCodeBut = '../../../assets/qrcode-bot.png'; 
   currentQrCodeUrl = '../../../assets/qrcode-bot.png'; // URL inicial do QR Code
   lastUpdatedTimestamp: number | null = null; // Timestamp da última atualização
 
@@ -28,6 +29,8 @@ export class SliderComponent {
   fotos: any[] = [];  // Array para armazenar as fotos
   foto: string | ArrayBuffer | null = null;
   //qrCode: string | ArrayBuffer | null = null;
+
+  showQrCodePopup = false; // Controle de visibilidade do popup
 
   constructor(private fotosService: FotosService, private zone: NgZone) {}
 
@@ -44,7 +47,6 @@ export class SliderComponent {
   }
 
   checkForNewImages() {
-
     console.log('VERIFICANDO EXISTENCIA DE NOVA IMAGEM');
 
     this.fotosService.getLastUpdatedTimestamp().subscribe(
@@ -80,7 +82,8 @@ export class SliderComponent {
         this.imagensCarregadas = results.filter(result => result != null);
         console.log('Todas as imagens foram baixadas e estão prontas para serem exibidas.');
         
-        this.currentQrCodeUrl = '../../../assets/qrcode-bot.png'; // URL inicial do QR Code
+        // this.currentQrCodeUrl = '../../../assets/qrcode-bot.png'; // URL inicial do QR Code
+        this.showQrCodePopup = true; // Exibe o popup com o QR code inicial
 
         // Adicionar um delay de 10 segundos antes de buscar o QR Code
         setTimeout(() => {
@@ -96,6 +99,10 @@ export class SliderComponent {
         console.error('Erro ao baixar uma ou mais imagens:', err);
       }
     });
+  }
+
+  closeQrCodePopup() {
+    this.showQrCodePopup = false; // Fecha o popup
   }
 
   buscarFotoServidor(id: any): Observable<string> {

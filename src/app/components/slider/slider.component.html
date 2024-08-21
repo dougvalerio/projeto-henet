@@ -24,5 +24,15 @@
     <p>Desenvolvido por: </p>
     <img src="../../../assets/logo-velejar.png" alt="">
   </div>
+
+  <!-- Popup para exibir o QR code inicial -->
+  <div *ngIf="showQrCodePopup" class="popup">
+    <div class="popup-content">
+      <button class="close-button" (click)="closeQrCodePopup()">✕</button>
+
+      <h4>Leia o QR Code <br> antes de baixar a sua foto: </h4>
+      <img [src]="qrCodeBut" alt="QR Code Inicial">
+    </div>
+  </div>
 </div>
   
