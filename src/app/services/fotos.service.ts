@@ -19,18 +19,22 @@
         }
 
         // Método para fazer o GET de uma foto específica pelo ID
-        getFoto(id: number): Observable<Blob> {
+        getImagem(id: number): Observable<Blob> {
           return this.http.get(`${this.apiUrl}/${id}/imagem`, { responseType: 'blob' });
         }
       
         // Método para fazer o GET de todas as fotos
-        getAllFotos(): Observable<Imagem[]> {
+        getAllImagens(): Observable<Imagem[]> {
           return this.http.get<Imagem[]>(`${this.apiUrl}`);
         }
 
         // Método para fazer o GET das ultimas 5 fotos do carrossel
-        getCarrosselFotos(): Observable<Imagem[]> {
+        getCarrosselImagens(): Observable<Imagem[]> {
           return this.http.get<Imagem[]>(`${this.apiUrl}/carrossel`);
+        }
+
+        getLastUpdatedTimestamp(): Observable<number> {
+          return this.http.get<number>(`${this.apiUrl}/last-updated`);
         }
       
         // Método específico para carregar o QR code

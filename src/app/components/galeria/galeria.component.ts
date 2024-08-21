@@ -26,7 +26,7 @@ export class GaleriaComponent implements OnInit {
   }
 
   carregarImagens(): void {
-    this.fotosService.getAllFotos().subscribe((fotos: Imagem[]) => {
+    this.fotosService.getAllImagens().subscribe((fotos: Imagem[]) => {
       console.log("Exibir fotos", fotos)
       // Ordenar as fotos por ID em ordem decrescente
       fotos.sort((a, b) => b.id - a.id);
@@ -37,7 +37,7 @@ export class GaleriaComponent implements OnInit {
       // Itera sobre as fotos já ordenadas
       fotos.forEach(foto => {
         console.log("Teste: ", foto)
-        this.fotosService.getFoto(foto.id).subscribe((imagemBlob: Blob) => {
+        this.fotosService.getImagem(foto.id).subscribe((imagemBlob: Blob) => {
           const objectURL = URL.createObjectURL(imagemBlob);
           const sanitizedUrl = this.sanitizer.bypassSecurityTrustUrl(objectURL);
           this.imagens.push(sanitizedUrl);
