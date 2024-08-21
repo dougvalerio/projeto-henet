@@ -45,7 +45,7 @@ export class SliderComponent {
   }
 
   findAll(){
-    this.fotosService.getAllImagens().subscribe(resposta => {
+    this.fotosService.getCarrosselImagens().subscribe(resposta => {
         this.ELEMENT_DATA = resposta;
         this.baixarImagens();
     }, error => {
