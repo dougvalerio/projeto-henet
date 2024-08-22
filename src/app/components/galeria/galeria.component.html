@@ -13,6 +13,8 @@
       <button class="close-button" (click)="closeImagePopup()">✕</button>
       <img [src]="selectedImageSrc" alt="Imagem ampliada">
       <img *ngIf="selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">  <!-- Imagem do QR code -->
+
+      <button class="delete-button"><img src="../../../assets/lixeira.png" alt=""></button>
     </div>
   </div>
 </div>  
