@@ -18,6 +18,7 @@ export class GaleriaComponent implements OnInit {
   selectedImageSrc: SafeUrl | null = null;
   selectedQrcodeSrc: SafeUrl | null = null;  // Adicionando variável para o QR code
   imagens: SafeUrl[] = [];  // Array para armazenar URLs seguras das imagens
+  imagensIds: number[] = [];  // Array para armazenar os IDs das imagens
   fotoAtualId: number | null = null;  // Armazena o ID da foto atual
 
   constructor(private fotosService: FotosService, private sanitizer: DomSanitizer) {}
@@ -35,16 +36,19 @@ export class GaleriaComponent implements OnInit {
   
       // Limpa o array para evitar duplicação se o método for chamado novamente
       this.imagens = [];
+      this.imagensIds = [];
   
-      // Criar um array de observables para carregar todas as imagens
-      const observables = fotos.map(foto =>
-        this.fotosService.getImagem(foto.id).pipe(
-          map((imagemBlob: Blob) => {
-            const objectURL = URL.createObjectURL(imagemBlob);
-            return this.sanitizer.bypassSecurityTrustUrl(objectURL);
-          })
-        )
+    // Criar um array de observables para carregar todas as imagens
+    const observables = fotos.map(foto => {
+      this.imagensIds.push(foto.id);
+      return this.fotosService.getImagem(foto.id).pipe(
+        map((imagemBlob: Blob) => {
+          const objectURL = URL.createObjectURL(imagemBlob);
+          return this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        })
       );
+    });
+
   
       // Esperar que todos os observables sejam concluídos antes de preencher o array de imagens
       forkJoin(observables).subscribe((sanitizedUrls: SafeUrl[]) => {

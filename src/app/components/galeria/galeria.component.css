@@ -6,6 +6,10 @@
   min-height: 100vh;
 }
 
+.galeria {
+  margin-top: 7rem;
+}
+
 mat-grid-tile {
   background: lightblue;
   border: 3px solid dodgerblue;

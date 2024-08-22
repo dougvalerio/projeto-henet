@@ -1,9 +1,11 @@
 <div class="container">
-  <mat-grid-list cols="4" rowHeight="5:7" gutterSize="10px">
-    <mat-grid-tile *ngFor="let imagem of imagens; let i = index" (click)="openImagePopup(imagem, i + 1)">
-      <img [src]="imagem" alt="Imagem da galeria">
-    </mat-grid-tile>
-  </mat-grid-list>
+  <div class="galeria">
+    <mat-grid-list cols="4" rowHeight="5:7" gutterSize="10px">
+      <mat-grid-tile *ngFor="let imagem of imagens; let i = index" (click)="openImagePopup(imagem, imagensIds[i])">
+        <img [src]="imagem" alt="Imagem da galeria">
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 
   <!-- Popup para exibir a imagem -->
   <div *ngIf="isPopupOpen" class="popup">
@@ -13,4 +15,4 @@
       <img *ngIf="selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">  <!-- Imagem do QR code -->
     </div>
   </div>
-</div>
+</div>  
