@@ -5,8 +5,10 @@ import { GaleriaComponent } from './components/galeria/galeria.component';
 import { UploadComponent } from './components/upload/upload.component';
 
 export const routes: Routes = [
-  {path: 'home', component: SliderComponent},
-  {path: 'galeria', component: GaleriaComponent},
-  {path: 'upload', component: UploadComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redireciona o caminho vazio para /home
+  { path: 'home', component: SliderComponent },
+  { path: 'galeria', component: GaleriaComponent },
+  { path: 'upload', component: UploadComponent },
+  // Adicione um wildcard route para redirecionar para /home em caso de rota inválida
+  { path: '**', redirectTo: '/home' }
 ];
-
