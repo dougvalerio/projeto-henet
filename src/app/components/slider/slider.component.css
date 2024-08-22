@@ -101,3 +101,44 @@ swiper-container {
     color: white; /* Adiciona cor ao botão para maior visibilidade */
     z-index: 1001; /* Garante que o botão esteja acima de outros elementos */
 }
+
+/* Estilos para dispositivos móveis */
+@media (max-width: 768px) {
+  .carousel-slide {
+    margin-top: 2rem; /* Reduz o espaçamento superior */
+  }
+
+  swiper-slide {
+    width: 100%; /* Ajusta a largura do slide para preencher a tela */
+    height: auto; /* Ajusta a altura automaticamente */
+  }
+
+  .qrcode {
+    padding: 1rem;
+    margin-bottom: 3rem; /* Reduz o espaçamento inferior */
+  }
+
+  .qrcode img {
+    width: 200px; /* Reduz o tamanho do QR code */
+  }
+
+  .logo-velejar p {
+    font-size: 0.8rem; /* Reduz o tamanho da fonte */
+  }
+
+  .logo-velejar img {
+    width: 6rem; /* Reduz o tamanho da logo */
+  }
+
+  .popup-content h4 {
+    font-size: 1.5rem; /* Reduz o tamanho do texto no popup */
+  }
+
+  .popup-content img {
+    width: 300px; /* Reduz o tamanho do QR code no popup */
+  }
+
+  .close-button {
+    font-size: 40px; /* Reduz o tamanho do botão de fechar */
+  }
+}
