@@ -2,7 +2,7 @@
   <div class="galeria">
     <mat-grid-list cols="4" rowHeight="5:7" gutterSize="10px">
       <mat-grid-tile *ngFor="let imagem of imagens; let i = index" (click)="openImagePopup(imagem, imagensIds[i])">
-        <img [src]="imagem" alt="Imagem da galeria">
+        <img [src]="imagem" alt="Imagem da galeria" loading="lazy">
       </mat-grid-tile>
     </mat-grid-list>
   </div>

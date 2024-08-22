@@ -29,33 +29,25 @@ export class GaleriaComponent implements OnInit {
 
   carregarImagens(): void {
     this.fotosService.getAllImagens().subscribe((fotos: Imagem[]) => {
-      console.log("Exibir fotos", fotos);
-      
-      // Ordenar as fotos por ID em ordem decrescente
       fotos.sort((a, b) => b.id - a.id);
   
-      // Limpa o array para evitar duplicação se o método for chamado novamente
       this.imagens = [];
       this.imagensIds = [];
-  
-    // Criar um array de observables para carregar todas as imagens
-    const observables = fotos.map(foto => {
-      this.imagensIds.push(foto.id);
-      return this.fotosService.getImagem(foto.id).pipe(
-        map((imagemBlob: Blob) => {
-          const objectURL = URL.createObjectURL(imagemBlob);
-          return this.sanitizer.bypassSecurityTrustUrl(objectURL);
-        })
-      );
-    });
-
-  
-      // Esperar que todos os observables sejam concluídos antes de preencher o array de imagens
-      forkJoin(observables).subscribe((sanitizedUrls: SafeUrl[]) => {
-        this.imagens = sanitizedUrls;
+      
+      fotos.forEach((foto, index) => {
+        setTimeout(() => {
+          this.fotosService.getImagem(foto.id).pipe(
+            map((imagemBlob: Blob) => {
+              const objectURL = URL.createObjectURL(imagemBlob);
+              this.imagens.push(this.sanitizer.bypassSecurityTrustUrl(objectURL));
+              this.imagensIds.push(foto.id);
+            })
+          ).subscribe();
+        }, index * 100);  // Atraso de 100ms entre as requisições
       });
     });
   }
+  
 
   openImagePopup(imageSrc: SafeUrl, fotoId: number): void {
     this.selectedImageSrc = imageSrc;
