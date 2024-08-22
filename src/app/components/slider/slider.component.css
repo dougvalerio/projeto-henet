@@ -76,6 +76,11 @@ swiper-container {
 }
 
 .popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
     text-align: center;
     position: relative; /* Adicionado para que o botão seja posicionado em relação a este elemento */
 }
@@ -85,11 +90,16 @@ swiper-container {
   font-size: 2rem;
 }
 
-.popup-content img {
+.qrcode-popup {
   width: 400px;
   border: 40px solid #FFF;
 }
 
+.logo-henet-popup {
+  width: 300px;
+  margin-top: 25px;
+}
+ 
 .close-button {
     position: fixed; /* Modificado de absolute para fixed */
     top: 10px;
@@ -134,8 +144,13 @@ swiper-container {
     font-size: 1.5rem; /* Reduz o tamanho do texto no popup */
   }
 
-  .popup-content img {
+  .qrcode-popup {
     width: 300px; /* Reduz o tamanho do QR code no popup */
+  }
+
+  .logo-henet-popup {
+    width: 200px;
+    margin-top: 25px;
   }
 
   .close-button {
