@@ -46,3 +46,17 @@
   background-color: #01477B;
   color: #FFF;
 }
+
+/* Estilos para dispositivos móveis */
+@media (max-width: 768px) {
+  .carregar-img h1 {
+    font-size: 1.5rem; /* Reduz o tamanho do título */
+    margin-bottom: 1.5rem;
+  }
+
+  .carregar-img label {
+    padding: 2rem 3rem; /* Reduz o padding do botão */
+    font-size: 2rem; /* Reduz o tamanho da fonte do botão */
+    border-width: 8px; /* Reduz a largura da borda */
+  }
+}

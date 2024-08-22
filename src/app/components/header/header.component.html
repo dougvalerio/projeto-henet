@@ -4,7 +4,11 @@
       <img src="../../../assets/LOGO-HE-NET-FIB24.png" alt="">
     </div>
 
-    <div class="navegacao">
+    <div class="menu-btn" (click)="toggleMenu()">
+      <span class="menu-icon">&#9776;</span> <!-- Ícone do menu -->
+    </div>
+
+    <div class="navegacao" [class.active]="menuActive">
       <ul>
         <li><a routerLink="/home">Home</a></li>
         <li><a routerLink="/galeria">Galeria</a></li>
