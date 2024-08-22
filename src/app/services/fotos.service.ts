@@ -9,7 +9,7 @@
       export class FotosService {
 
         private apiUrl = 'http://177.38.244.53:9090/api/fotos';
-        // private apiUrl = 'http://localhost:8080/api/fotos';
+        //private apiUrl = 'http://localhost:8080/api/fotos';
 
         constructor(private http: HttpClient) { }
       
