@@ -5,6 +5,7 @@ import { FotosService } from '../../services/fotos.service';  // Importando o se
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Imagem } from '../../models/imagem';
 import { forkJoin, map } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-galeria',
@@ -21,7 +22,7 @@ export class GaleriaComponent implements OnInit {
   imagensIds: number[] = [];  // Array para armazenar os IDs das imagens
   fotoAtualId: number | null = null;  // Armazena o ID da foto atual
 
-  constructor(private fotosService: FotosService, private sanitizer: DomSanitizer) {}
+  constructor(private fotosService: FotosService, private sanitizer: DomSanitizer,private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.carregarImagens();
@@ -72,5 +73,22 @@ export class GaleriaComponent implements OnInit {
     this.selectedImageSrc = null;
     this.selectedQrcodeSrc = null;  // Limpar a URL do QR code
     this.fotoAtualId = null;  // Limpar o ID da foto atual
+  }
+
+  deleteImagePopup(): void {
+    this.fotosService.delete(this.fotoAtualId).subscribe(() => {
+      this.snackBar.open('Imagem excluida com sucesso!', 'Fechar', {
+        duration: 5000,
+      });     
+      this.closeImagePopup();
+      this.carregarImagens();
+    }, ex => {
+      
+      this.snackBar.open('Erro ao excluir a imagem!', 'Fechar', {
+        duration: 5000,
+      });    
+      
+    })
+
   }
 }

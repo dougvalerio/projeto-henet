@@ -41,4 +41,8 @@
         getQrcodeById(id: number): Observable<Blob> {
           return this.http.get(`${this.apiUrl}/${id}/qrcode`, { responseType: 'blob' });
         }
+
+        delete(id: any): Observable<Imagem> {
+          return this.http.delete<Imagem>(`${this.apiUrl}/${id}`);
+        }
       }

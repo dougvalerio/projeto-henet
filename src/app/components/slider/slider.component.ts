@@ -53,7 +53,7 @@ export class SliderComponent {
       (timestamp: number) => {
         console.log('lastUpdatedTimestamp', this.lastUpdatedTimestamp);
         console.log('timestamp', timestamp);
-        if (this.lastUpdatedTimestamp === null || timestamp > this.lastUpdatedTimestamp) {
+        if (this.lastUpdatedTimestamp === null || timestamp > this.lastUpdatedTimestamp) {1
           this.lastUpdatedTimestamp = timestamp;
           this.findAll();          
         }
