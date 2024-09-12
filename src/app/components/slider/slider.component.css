@@ -1,10 +1,9 @@
 .container {
     width: 100%;
-    background: url("../../../assets/BG-TOTEM-FIB24.png");
-
+    background: url("../../../assets/background-teste.jpg") no-repeat center center;
+    background-size: cover; /* Ajusta a imagem para cobrir toda a área */
     min-height: 100vh;
-
-    padding: 2rem;
+    padding: 3rem;
 }
 
 .carousel-slide {

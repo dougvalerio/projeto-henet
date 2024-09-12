@@ -1,7 +1,8 @@
 .container {
   width: 100%;
   min-height: 100vh;
-  background: url("../../../assets/BG-TOTEM-FIB24.png");
+  background: url("../../../assets/background-teste.jpg") no-repeat center center;
+  background-size: cover; /* Ajusta a imagem para cobrir toda a área */
 
   display: flex;
   flex-direction: column;

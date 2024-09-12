@@ -6,7 +6,7 @@
   align-items: center;
 
   padding: 4rem;
-  background-color: #01467b80;
+  background: linear-gradient(to bottom, #6b6b6b, #000000); /* Degradê de cinza claro para preto */
 }
 
 .row {
@@ -27,7 +27,7 @@
   width: 15rem;
 }
 
-.navegacao ul{
+.navegacao ul {
   display: flex;
   align-items: center;
   gap: 1.5rem; 

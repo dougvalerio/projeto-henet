@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>CONFIGURAÇÕES</h1>
+
+  <form>
+    <!-- Input para carregar a logo -->
+    <div class="file-input-container">
+      <h2>Logo:</h2>
+      <label for="logo" class="custom-file-input">Carregar</label>
+      <input type="file" id="logo" (change)="onFileSelected($event, 'logo')" hidden />
+    </div>
+
+    <!-- Input para carregar o background -->
+    <div class="file-input-container">
+      <h2>Background:</h2>
+      <label for="background" class="custom-file-input">Carregar</label>
+      <input type="file" id="background" (change)="onFileSelected($event, 'background')" hidden />
+    </div>
+
+    <!-- Input para carregar uma imagem comum -->
+    <div class="file-input-container">
+      <h2>QR Code:</h2>
+      <label for="image" class="custom-file-input">Carregar</label> 
+      <input type="file" id="image" (change)="onFileSelected($event, 'image')" hidden />
+    </div>
+
+    <!-- Botão de salvar -->
+    <div class="save-container">
+      <button type="button" class="save-button">Salvar</button>
+    </div>
+  </form>
+</div>

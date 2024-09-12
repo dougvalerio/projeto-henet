@@ -1,6 +1,7 @@
 .container {
   width: 100%;
-  background: url("../../../assets/BG-TOTEM-FIB24.png");
+  background: url("../../../assets/background-teste.jpg") no-repeat center center;
+  background-size: cover; /* Ajusta a imagem para cobrir toda a área */
 
   min-height: 100vh;
   
@@ -20,7 +21,7 @@
 }
 
 .carregar-img h1 {  
-  color: #01477B;
+  color: #FFF;
   font-size: 3rem;
   margin-bottom: 2rem;
 }
@@ -32,9 +33,9 @@
 .carregar-img label {
   display: inline-block;
   padding: 3rem 5rem;
-  color: #01477B;
+  color: #FFF;
   background-color: transparent;
-  border: 10px solid #01477B;
+  border: 5px solid #FFF;
   border-radius: 40px;
   cursor: pointer;
   font-size: 4rem;
@@ -43,7 +44,7 @@
 }
 
 .carregar-img label:hover {
-  background-color: #01477B;
+  background-color: red;
   color: #FFF;
 }
 

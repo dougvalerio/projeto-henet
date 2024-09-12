@@ -1,0 +1,97 @@
+/* Centralizando todo o container horizontal e verticalmente */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  background: url("../../../assets/background-teste.jpg") no-repeat center center;
+  background-size: cover; /* Ajusta a imagem para cobrir toda a área */
+
+  min-height: 100vh;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+
+  padding: 3rem;
+}
+
+/* Estilos para o título */
+h1 {
+  color: #FFF;
+  margin-bottom: 5rem;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #FFF;
+  font-size: 2.5rem;
+}
+
+/* Estilos para os botões de upload */
+.custom-file-input {
+  display: inline-block;
+  padding: 2rem 4rem;
+  background-color: #007bff; /* Cor azul como no botão Salvar */
+  border: 3px solid #007bff; /* Borda igual ao botão Salvar */
+  border-radius: 5px; /* Mesmo estilo de borda */
+  color: white; /* Texto branco */
+  font-size: 2rem; /* Ajustando para o mesmo tamanho */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-file-input:hover {
+  background-color: #0056b3; /* Mesma cor de hover do botão Salvar */
+  color: white;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+/* Estilos para os previews de imagem */
+img {
+  margin-top: 10px;
+  display: block;
+  max-width: 200px;
+}
+
+/* Centralizar cada input de arquivo */
+.file-input-container {
+  margin-bottom: 3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Estilo para o botão de salvar */
+.save-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+/* Estilo para o botão de salvar */
+.save-button {
+  padding: 1rem 2rem;
+  background-color: #28a745; /* Alterado para fundo verde */
+  border: 2px solid #28a745; /* Borda verde */
+  border-radius: 5px;
+  color: white; /* Texto branco */
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #218838; /* Verde mais escuro no hover */
+  color: white;
+}
+
