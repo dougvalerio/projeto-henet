@@ -5,6 +5,8 @@
   justify-content: center;
   height: 100vh;
   text-align: center;
+
+  position: relative; 
 }
 
 h2 {
@@ -60,4 +62,25 @@ h2 {
 
 .submit-button:hover {
   background-color: #45a049;
+}
+
+.logo-velejar {
+  position: absolute; /* Faz a div ficar fora do fluxo normal do documento */
+  bottom: 30px; /* Posiciona 20px acima do final da tela */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-velejar p {
+  color: #FFF;
+  font-size: 1.5rem;
+}
+
+.logo-velejar img {
+  width: 13rem;
+
+  margin: 0;
+  padding: 0;
 }

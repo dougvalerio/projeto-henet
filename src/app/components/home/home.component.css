@@ -15,30 +15,52 @@ body, html {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative; /* Adicionado para permitir o posicionamento absoluto da logo */
 }
 
 .menu-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px; /* Aumenta o tamanho do texto */
-  padding: 20px 40px; /* Aumenta o tamanho do botão */
-  margin: 15px 0;
-  width: 300px;
+  font-size: 31.2px; /* Aumentado em 30% */
+  padding: 26px 52px; /* Aumentado em 30% */
+  margin: 25px 0;
+  width: 390px; /* Aumentado em 30% */
   background-color: transparent; /* Torna o botão transparente */
   color: #FFF; /* Cor do texto e bordas */
   border: 2px solid #FFF; /* Borda visível */
-  border-radius: 20px; /* Maior arredondamento */
+  border-radius: 26px; /* Aumentado em 30% */
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .menu-btn i {
-  margin-right: 12px;
-  font-size: 28px; /* Aumenta o tamanho do ícone */
+  margin-right: 15.6px; /* Aumentado em 30% */
+  font-size: 36.4px; /* Aumentado em 30% */
 }
 
 .menu-btn:hover {
   background-color: #FFF; /* Cor de fundo ao passar o mouse */
-  color: white; /* Cor do texto ao passar o mouse */
+  color: #000; /* Cor do texto ao passar o mouse */
+}
+
+.logo-velejar {
+  position: absolute; /* Faz a div ficar fora do fluxo normal do documento */
+  bottom: 30px; /* Posiciona 20px acima do final da tela */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-velejar p {
+  color: #FFF;
+  font-size: 1.5rem;
+}
+
+.logo-velejar img {
+  width: 13rem;
+
+  margin: 0;
+  padding: 0;
 }
