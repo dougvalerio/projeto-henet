@@ -10,12 +10,12 @@ import { NgZone } from '@angular/core';
   selector: 'app-slider',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css'],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 
-export class SliderComponent {
+export class HomeComponent {
 
   ELEMENT_DATA: Imagem[] = [];
   imagensCarregadas: string[] = []; // Lista para guardar as URLs das imagens em base64

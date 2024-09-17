@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { SliderComponent } from './components/slider/slider.component';
+import { HomeComponent } from './components/home/home.component';
 import { GaleriaComponent } from './components/galeria/galeria.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { QrcodeComponent } from './components/qrcode/qrcode.component';
@@ -9,7 +9,7 @@ import { CarrosselComponent } from './components/carrossel/carrossel.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redireciona o caminho vazio para /home
-  { path: 'home', component: SliderComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'carrossel', component: CarrosselComponent },
   { path: 'galeria', component: GaleriaComponent },
   { path: 'qrcode', component: QrcodeComponent },

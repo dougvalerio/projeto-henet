@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
 export class ConfigComponent {
   logoPreview: string | ArrayBuffer | null = null;
   backgroundPreview: string | ArrayBuffer | null = null;
+  molduraPreview: string | ArrayBuffer | null = null;
   imagePreview: string | ArrayBuffer | null = null;
 
   onFileSelected(event: any, type: string) {
@@ -22,6 +23,8 @@ export class ConfigComponent {
           this.logoPreview = reader.result;
         } else if (type === 'background') {
           this.backgroundPreview = reader.result;
+        } else if (type === 'moldura') {
+          this.molduraPreview = reader.result;
         } else if (type === 'image') {
           this.imagePreview = reader.result;
         }
