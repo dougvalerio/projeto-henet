@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="carousel-slide">
+    <swiper-container class="mySwiper" 
+                  [pagination]="true" 
+                  effect="coverflow" 
+                  grab-cursor="true" 
+                  centered-slides="true"
+                  [slidesPerView]="'auto'"
+                  [coverflowEffect]="{ rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true }"
+                  [autoplay]="{ delay: 2000, disableOnInteraction: false }">
+  
+      <swiper-slide *ngFor="let fotoBase64 of imagensCarregadas" lazy="true">
+        <img [src]="fotoBase64" alt="Foto carregada" />
+      </swiper-slide>
+  
+    </swiper-container>
+  </div>
+    
+  <div class="qrcode">
+    <img [src]="currentQrCodeUrl" alt="QR Code">
+  </div>
+
+  <div class="logo-velejar">
+    <p>Desenvolvido por: </p>
+    <img src="../../../assets/logo-velejar.png" alt="">
+  </div>
+
+  <!-- Popup para exibir o QR code inicial -->
+  <div *ngIf="showQrCodePopup" class="popup">
+    <div class="popup-content">
+      <button class="close-button" (click)="closeQrCodePopup()">✕</button>
+
+      <h4>Leia o QR Code <br> antes de baixar a sua foto: </h4>
+      <img [src]="qrCodeBut" alt="QR Code Inicial" class="qrcode-popup">
+      <img src="../../../assets/logo-be2b.jpg" alt="logo henet" class="logo-henet-popup">
+    </div>
+  </div>
+</div>
+  
