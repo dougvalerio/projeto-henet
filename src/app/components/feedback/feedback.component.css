@@ -1,0 +1,63 @@
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+h2 {
+  color: white; /* Cor do texto alterada para branco */
+  font-size: 4rem; /* Tamanho duplicado da fonte */
+}
+
+.emoji-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px 0; /* Espaçamento ajustado */
+  width: 600px; /* Largura ajustada para o retângulo */
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente para o retângulo */
+  border-radius: 15px; /* Arredondar as bordas do retângulo */
+}
+
+.emoji-container button {
+  font-size: 4rem; /* Tamanho duplicado dos emojis */
+  background: none; /* Remover fundo dos botões individuais */
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.emoji-container button:hover {
+  transform: scale(1.3); /* Emojis aumentam ao passar o mouse */
+}
+
+.selected {
+  transform: scale(1.7); /* Aumenta o tamanho do emoji */
+  filter: brightness(2.0); /* Aumenta o brilho do emoji */
+}
+
+.opinion-box {
+  width: 600px; /* Tamanho duplicado da caixa de texto */
+  margin: 40px 0;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  font-size: 1.5rem; /* Fonte aumentada */
+}
+
+.submit-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px 40px; /* Tamanho duplicado do botão */
+  font-size: 1.5rem; /* Fonte aumentada */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
