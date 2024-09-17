@@ -23,7 +23,11 @@
     placeholder="Deixe sua opinião aqui..."
     rows="5"
     class="opinion-box"
+    [(ngModel)]="opinion"
+    (focus)="openVirtualKeyboard()"
   ></textarea>
+
+  <div class="keyboard-container" id="keyboard"></div> <!-- Container para o teclado -->
 
   <button (click)="submitFeedback()" class="submit-button">Salvar</button>
 

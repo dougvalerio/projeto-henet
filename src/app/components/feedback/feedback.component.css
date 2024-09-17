@@ -50,6 +50,23 @@ h2 {
   font-size: 1.5rem; /* Fonte aumentada */
 }
 
+.keyboard-container {
+  position: fixed; /* Fixar o teclado na parte inferior */
+  bottom: 0; /* Alinhar o teclado ao final da tela */
+  left: 0;
+  width: 100%; /* O teclado cobrirá toda a largura da tela */
+  height: 300px; /* Aumentar a altura do teclado */
+  background-color: #fff;
+  z-index: 100; /* Certificar-se de que o teclado ficará sobre outros elementos */
+  display: none; /* Escondido por padrão */
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1); /* Adicionar uma sombra para destaque */
+}
+
+.simple-keyboard {
+  font-size: 2rem; /* Aumentar o tamanho da fonte do teclado */
+  height: 100%; /* Preencher a altura total do container */
+}
+
 .submit-button {
   background-color: #4CAF50;
   color: white;
