@@ -7,6 +7,7 @@ import { QrcodeComponent } from './components/qrcode/qrcode.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { ConfigComponent } from './components/config/config.component';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
