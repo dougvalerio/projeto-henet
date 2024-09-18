@@ -42,12 +42,10 @@ export class FeedbackComponent implements AfterViewInit {
       response => {
         this.depoimento.id = response.id; // Atualiza o ID retornado pelo backend
         console.log(this.depoimento)
-        alert('Feedback enviado com sucesso!');
         this.resetFeedback();
       },
       error => {
         console.error('Erro ao enviar feedback:', error);
-        alert('Erro ao enviar feedback. Tente novamente.');
       }
     );
   }

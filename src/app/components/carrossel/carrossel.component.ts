@@ -19,8 +19,8 @@ export class CarrosselComponent {
   ELEMENT_DATA: Imagem[] = [];
   imagensCarregadas: string[] = []; // Lista para guardar as URLs das imagens em base64
 
-  qrCodeBut = '../../../assets/qrcode-be2b.jpg'; 
-  currentQrCodeUrl = '../../../assets/qrcode-be2b.jpg'; // URL inicial do QR Code
+  qrCodeBut = '../../../assets/qrcode-pz.jpg'; 
+  currentQrCodeUrl = '../../../assets/qrcode-pz.jpg'; // URL inicial do QR Code
   lastUpdatedTimestamp: number | null = null; // Timestamp da última atualização
 
   private intervalId: number | null = null;

@@ -7,8 +7,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ConfigService {
   
-  //private apiUrl = 'http://177.38.244.53:9090/api/config'; // Substitua pela URL real do backend
-  private apiUrl = 'http://localhost:8080/api/config';
+  private apiUrl = 'http://177.38.244.53:9090/api/config'; // Substitua pela URL real do backend
+  // private apiUrl = 'http://localhost:8080/api/config';
 
    // BehaviorSubject para armazenar a URL da logo e permitir que outros componentes se inscrevam
    private logoSource = new BehaviorSubject<string>('../../../assets/logo-be2b.jpg');
