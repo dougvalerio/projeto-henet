@@ -1,7 +1,10 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Importação do FormsModule para standalone components
+import { FormsModule } from '@angular/forms'; // Importação do FormsModule
 import Keyboard from 'simple-keyboard';
 import 'simple-keyboard/build/css/index.css';
+import { FeedbackService } from '../../services/feedback.service';// Importe o serviço de feedback
+import { Depoimento } from '../../models/depoimento';// Importe o modelo de Depoimento
+
 
 @Component({
   selector: 'app-feedback',
@@ -11,29 +14,53 @@ import 'simple-keyboard/build/css/index.css';
   imports: [FormsModule]  // Certifique-se de que o FormsModule foi importado aqui
 })
 export class FeedbackComponent implements AfterViewInit {
-  selectedFeedback: number = 0;
-  opinion: string = ''; // Controla o valor do textarea
-  keyboard!: Keyboard; // Instância do teclado
+  selectedFeedback: number = 2; // Feedback escolhido (de 0 a 4)
+  opinion: string = ''; // Texto do textarea
+  keyboard!: Keyboard; // Instância do teclado virtual
+  depoimento: Depoimento = { id: null, status: 0, descricao: '' }; // Inicializa o objeto Depoimento
 
+  constructor(private feedbackService: FeedbackService) {}
+
+  // Define o feedback ao clicar nos emojis
   setFeedback(rating: number) {
     this.selectedFeedback = rating;
+    this.depoimento.status = rating; // Atualiza o status do depoimento
   }
 
+  // Envia o depoimento
   submitFeedback() {
-    if (this.selectedFeedback === 0 || this.opinion.trim() === '') {
+    if (this.selectedFeedback === null || this.opinion.trim() === '') {
       alert('Por favor, selecione uma avaliação e escreva sua opinião.');
       return;
     }
 
-    console.log('Feedback:', this.selectedFeedback);
-    console.log('Opinião:', this.opinion);
+    // Atualiza a descrição do depoimento
+    this.depoimento.descricao = this.opinion;
 
-    alert('Feedback enviado com sucesso!');
-    this.selectedFeedback = 0;
-    this.opinion = '';
-    this.keyboard.setInput(''); // Limpa o teclado após enviar o feedback
+    // Chama o serviço de feedback para salvar o depoimento
+    this.feedbackService.createDepoimento(this.depoimento).subscribe(
+      response => {
+        this.depoimento.id = response.id; // Atualiza o ID retornado pelo backend
+        console.log(this.depoimento)
+        alert('Feedback enviado com sucesso!');
+        this.resetFeedback();
+      },
+      error => {
+        console.error('Erro ao enviar feedback:', error);
+        alert('Erro ao enviar feedback. Tente novamente.');
+      }
+    );
   }
 
+  // Reseta os campos após o envio
+  resetFeedback() {
+    this.selectedFeedback = 0;
+    this.opinion = '';
+    this.keyboard.setInput(''); // Limpa o teclado virtual
+    this.depoimento = { id: null, status: 0, descricao: '' }; // Reseta o objeto Depoimento
+  }
+
+  // Inicializa o teclado virtual
   ngAfterViewInit() {
     const keyboardElement = document.getElementById('keyboard');
     
@@ -62,6 +89,7 @@ export class FeedbackComponent implements AfterViewInit {
       this.keyboard.setInput(this.opinion); // Preenche o teclado com o valor atual do textarea
     }
   }
+
   // Tratar teclas especiais, como Enter
   onKeyPress(button: string) {
     if (button === "{enter}") {
