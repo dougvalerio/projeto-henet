@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-config',
@@ -7,21 +8,27 @@ import { Component } from '@angular/core';
   templateUrl: './config.component.html',
   styleUrl: './config.component.css'
 })
-export class ConfigComponent {
+export class ConfigComponent implements OnInit {
   logoPreview: string | ArrayBuffer | null = null;
   backgroundPreview: string | ArrayBuffer | null = null;
   molduraPreview: string | ArrayBuffer | null = null;
   imagePreview: string | ArrayBuffer | null = null;
+
+  constructor(private configService: ConfigService) {}
+
+  ngOnInit(): void {
+    this.loadSavedBackground();
+  }
 
   onFileSelected(event: any, type: string) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        // Definir o preview da imagem de acordo com o tipo
         if (type === 'logo') {
           this.logoPreview = reader.result;
         } else if (type === 'background') {
+          this.uploadBackground(file);
           this.backgroundPreview = reader.result;
         } else if (type === 'moldura') {
           this.molduraPreview = reader.result;
@@ -31,5 +38,35 @@ export class ConfigComponent {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  uploadBackground(file: File) {
+    this.configService.uploadBackground(file).subscribe({
+      next: (response) => {
+        console.log('Background uploaded successfully:', response);
+        this.setBackground(response); // Define o background com a URL retornada
+      },
+      error: (error) => {
+        console.error('Error uploading background:', error);
+      }
+    });
+  }
+
+  loadSavedBackground() {
+    this.configService.getBackground().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        this.setBackground(url); // Carrega o background previamente salvo
+      },
+      error: (error) => {
+        console.error('Error loading background:', error);
+      }
+    });
+  }
+
+  setBackground(imageUrl: string) {
+    const body = document.body;
+    body.style.background = `url(${imageUrl}) no-repeat center center`;
+    body.style.backgroundSize = 'cover';
   }
 }
