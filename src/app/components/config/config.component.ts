@@ -40,6 +40,43 @@ export class ConfigComponent implements OnInit {
     }
   }
 
+  /* LOGO */
+
+  uploadLogo(file: File) {
+    this.configService.uploadLogo(file).subscribe({
+      next: (response) => {
+        console.log('Logo uploaded successfully:', response);
+        this.setLogo(response); // Define a logo com a URL retornada
+      },
+      error: (error) => {
+        console.error('Error uploading logo:', error);
+      }
+    });
+  }
+
+  loadSavedLogo() {
+    this.configService.getLogo().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        this.setLogo(url); // Carrega a logo previamente salva
+      },
+      error: (error) => {
+        console.error('Error loading logo:', error);
+      }
+    });
+  }
+
+  setLogo(imageUrl: string) {
+    const logoElement = document.querySelector('.logo') as HTMLElement;
+    if (logoElement) {
+      logoElement.style.backgroundImage = `url(${imageUrl})`;
+      logoElement.style.backgroundSize = 'contain';
+      logoElement.style.backgroundRepeat = 'no-repeat';
+    }
+  }
+
+  /* BACKGROUND */
+
   uploadBackground(file: File) {
     this.configService.uploadBackground(file).subscribe({
       next: (response) => {
@@ -68,5 +105,31 @@ export class ConfigComponent implements OnInit {
     const body = document.body;
     body.style.background = `url(${imageUrl}) no-repeat center center`;
     body.style.backgroundSize = 'cover';
+  }
+
+  /* MOLDURA */
+
+  uploadMoldura(file: File) {
+    this.configService.uploadMoldura(file).subscribe({
+      next: (response) => {
+        console.log('Background uploaded successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error uploading background:', error);
+      }
+    });
+  }
+
+  /* QR CODE */
+
+  uploadQrCode(file: File) {
+    this.configService.uploadQrCode(file).subscribe({
+      next: (response) => {
+        console.log('Background uploaded successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error uploading background:', error);
+      }
+    });
   }
 }
