@@ -4,6 +4,7 @@ import Keyboard from 'simple-keyboard';
 import 'simple-keyboard/build/css/index.css';
 import { FeedbackService } from '../../services/feedback.service';// Importe o serviço de feedback
 import { Depoimento } from '../../models/depoimento';// Importe o modelo de Depoimento
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,7 +20,11 @@ export class FeedbackComponent implements AfterViewInit {
   keyboard!: Keyboard; // Instância do teclado virtual
   depoimento: Depoimento = { id: null, status: 0, descricao: '' }; // Inicializa o objeto Depoimento
 
-  constructor(private feedbackService: FeedbackService) {}
+
+  constructor(
+    private feedbackService: FeedbackService,
+    private snackBar: MatSnackBar
+  ) {}
 
   // Define o feedback ao clicar nos emojis
   setFeedback(rating: number) {
@@ -30,22 +35,27 @@ export class FeedbackComponent implements AfterViewInit {
   // Envia o depoimento
   submitFeedback() {
     if (this.selectedFeedback === null || this.opinion.trim() === '') {
-      alert('Por favor, selecione uma avaliação e escreva sua opinião.');
+      this.snackBar.open('Por favor, selecione uma avaliação e escreva sua opinião.', 'Fechar', {
+        duration: 3000,
+      });
       return;
     }
-
-    // Atualiza a descrição do depoimento
+  
     this.depoimento.descricao = this.opinion;
-
-    // Chama o serviço de feedback para salvar o depoimento
+  
     this.feedbackService.createDepoimento(this.depoimento).subscribe(
       response => {
-        this.depoimento.id = response.id; // Atualiza o ID retornado pelo backend
-        console.log(this.depoimento)
+        this.depoimento.id = response.id;
         this.resetFeedback();
+        this.snackBar.open('Mensagem enviada com sucesso!', 'Fechar', {
+          duration: 3000,
+        });
       },
       error => {
         console.error('Erro ao enviar feedback:', error);
+        this.snackBar.open('Erro ao enviar feedback. Tente novamente.', 'Fechar', {
+          duration: 3000,
+        });
       }
     );
   }

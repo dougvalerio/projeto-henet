@@ -2,6 +2,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 3rem;
+  overflow: hidden; /* Adicionado para evitar o scroll */
 }
 
 .carousel-slide {
