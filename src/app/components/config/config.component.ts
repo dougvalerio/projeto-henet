@@ -26,11 +26,13 @@ export class ConfigComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = () => {
         if (type === 'logo') {
+          this.uploadLogo(file);
           this.logoPreview = reader.result;
         } else if (type === 'background') {
           this.uploadBackground(file);
           this.backgroundPreview = reader.result;
         } else if (type === 'moldura') {
+          this.uploadMoldura(file);
           this.molduraPreview = reader.result;
         } else if (type === 'image') {
           this.imagePreview = reader.result;
@@ -112,10 +114,10 @@ export class ConfigComponent implements OnInit {
   uploadMoldura(file: File) {
     this.configService.uploadMoldura(file).subscribe({
       next: (response) => {
-        console.log('Background uploaded successfully:', response);
+        console.log('Moldura uploaded successfully:', response);
       },
       error: (error) => {
-        console.error('Error uploading background:', error);
+        console.error('Error uploading moldura:', error);
       }
     });
   }
@@ -125,10 +127,10 @@ export class ConfigComponent implements OnInit {
   uploadQrCode(file: File) {
     this.configService.uploadQrCode(file).subscribe({
       next: (response) => {
-        console.log('Background uploaded successfully:', response);
+        console.log('QrCode uploaded successfully:', response);
       },
       error: (error) => {
-        console.error('Error uploading background:', error);
+        console.error('Error uploading qrCode:', error);
       }
     });
   }
