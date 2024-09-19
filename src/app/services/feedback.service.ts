@@ -17,6 +17,11 @@ export class FeedbackService {
     })
   };
 
+  // Método para buscar todos os depoimentos
+  getAllDepoimentos(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/all`);
+  }
+
   // Método para buscar depoimento por ID
   getDepoimentoById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);

@@ -6,12 +6,13 @@ import { GaleriaComponent } from './components/galeria/galeria.component';
 import { QrcodeComponent } from './components/qrcode/qrcode.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { ConfigComponent } from './components/config/config.component';
+import { FeedbackComponent } from './components/feedback/feedback.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, HomeComponent, GaleriaComponent, QrcodeComponent, UploadComponent, ConfigComponent],
+  imports: [RouterOutlet, HeaderComponent, HomeComponent, GaleriaComponent, QrcodeComponent, UploadComponent, ConfigComponent, FeedbackComponent, ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

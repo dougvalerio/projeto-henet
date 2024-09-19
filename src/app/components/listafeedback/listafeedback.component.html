@@ -1,0 +1,17 @@
+<div class="container">
+  <div *ngIf="isLoading" class="loading-spinner">Carregando depoimentos...</div>
+
+  <div *ngIf="!isLoading && depoimentos.length === 0" class="no-feedback">
+    Nenhum depoimento disponível no momento.
+  </div>
+
+  <div *ngIf="!isLoading && depoimentos.length > 0" class="feedback-list">
+    <div *ngFor="let depoimento of depoimentos" class="feedback-card">
+      <p class="feedback-status">
+        Status: {{ getEmojiForStatus(depoimento.status) }}
+      </p>
+      <p class="feedback-descricao">"{{ depoimento.descricao }}"</p>
+      <p class="feedback-data"> {{ depoimento.dataRegistro }}</p> <!-- Exibindo a data -->
+    </div>
+  </div>
+</div>

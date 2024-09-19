@@ -1,0 +1,50 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 3rem;
+}
+
+.feedback-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Três colunas */
+  gap: 20px;
+  margin-top: 9rem;
+}
+
+.feedback-card {
+  background-color: rgba(128, 128, 128, 0.5); /* Cinza transparente */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.feedback-status {
+  color: #FFF;
+  font-size: 24px; /* Maior para o emoji */
+}
+
+.feedback-descricao {
+  font-size: 1.6rem; /* Descrição um pouco maior */
+  font-style: italic;
+  color: #d4af37; /* Cor dourada */
+  margin-top: 10px;
+}
+
+.loading-spinner {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.no-feedback {
+  font-size: 16px;
+  text-align: center;
+  color: #888;
+}
+
+.feedback-data {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #888;
+}
