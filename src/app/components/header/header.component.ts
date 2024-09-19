@@ -17,10 +17,8 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     this.configService.currentLogo.subscribe((logoUrl: string) => {
-      console.log('Logo URL received in header:', logoUrl); // Verifica a URL recebida
-      if (logoUrl) {
-        this.logoUrl = logoUrl; // Atualiza a logo quando o valor é alterado
-      }
+      console.log('Nova logo recebida no Header:', logoUrl);
+      this.logoUrl = logoUrl; // Atualiza a logo exibida
     });
   }
 

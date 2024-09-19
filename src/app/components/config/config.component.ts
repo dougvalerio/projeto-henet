@@ -48,9 +48,9 @@ export class ConfigComponent implements OnInit {
   uploadLogo(file: File) {
     this.configService.uploadLogo(file).subscribe({
       next: (response) => {
-        console.log('Logo uploaded successfully. URL:', response); // Verifica o que o backend está retornando
-        this.configService.changeLogo(response); // Atualiza o BehaviorSubject com a URL da logo
-        this.setLogo(response); // Define a logo no componente de configuração
+        console.log('Logo uploaded successfully. URL:', response);
+        // Atualiza a logo no BehaviorSubject, o que será refletido no componente Header
+        this.configService.changeLogo(response);
       },
       error: (error) => {
         console.error('Error uploading logo:', error);
@@ -62,8 +62,8 @@ export class ConfigComponent implements OnInit {
     this.configService.getLogo().subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
-        console.log("Olá : ", url)
-        this.setLogo(url); // Carrega a logo previamente salva
+        console.log("Logo carregada:", url);
+        this.configService.changeLogo(url); // Atualiza logo salva ao iniciar
       },
       error: (error) => {
         console.error('Error loading logo:', error);
