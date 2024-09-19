@@ -48,6 +48,7 @@ export class ConfigComponent implements OnInit {
     this.configService.uploadLogo(file).subscribe({
       next: (response) => {
         console.log('Logo uploaded successfully:', response);
+        this.configService.changeLogo(response); // Atualiza o BehaviorSubject no serviço
         this.setLogo(response); // Define a logo com a URL retornada
       },
       error: (error) => {
