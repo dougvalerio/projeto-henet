@@ -11,10 +11,12 @@ html, body {
 body { 
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif; 
-
   width: 100%;
-  background: url("../src/assets/background-pz.jpg") no-repeat center center;
-  background-size: cover; /* Ajusta a imagem para cobrir toda a área */
 }
 
-
+.background-container {
+  height: 100%; /* Ocupa toda a altura da página */
+  background: url("../src/assets/background-pz.jpg") no-repeat center center;
+  background-size: cover; /* Ajusta a imagem para cobrir toda a área */
+  overflow: auto; /* Permite scroll se necessário */
+}
