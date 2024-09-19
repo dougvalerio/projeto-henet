@@ -17,6 +17,7 @@ export class ConfigComponent implements OnInit {
   constructor(private configService: ConfigService) {}
 
   ngOnInit(): void {
+    this.loadSavedLogo();
     this.loadSavedBackground();
   }
 
@@ -47,9 +48,9 @@ export class ConfigComponent implements OnInit {
   uploadLogo(file: File) {
     this.configService.uploadLogo(file).subscribe({
       next: (response) => {
-        console.log('Logo uploaded successfully:', response);
-        this.configService.changeLogo(response); // Atualiza o BehaviorSubject no serviço
-        this.setLogo(response); // Define a logo com a URL retornada
+        console.log('Logo uploaded successfully. URL:', response); // Verifica o que o backend está retornando
+        this.configService.changeLogo(response); // Atualiza o BehaviorSubject com a URL da logo
+        this.setLogo(response); // Define a logo no componente de configuração
       },
       error: (error) => {
         console.error('Error uploading logo:', error);
@@ -61,6 +62,7 @@ export class ConfigComponent implements OnInit {
     this.configService.getLogo().subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
+        console.log("Olá : ", url)
         this.setLogo(url); // Carrega a logo previamente salva
       },
       error: (error) => {
@@ -105,9 +107,11 @@ export class ConfigComponent implements OnInit {
   }
 
   setBackground(imageUrl: string) {
-    const body = document.body;
-    body.style.background = `url(${imageUrl}) no-repeat center center`;
-    body.style.backgroundSize = 'cover';
+    const backgroundContainer = document.querySelector('.background-container') as HTMLElement;
+    if (backgroundContainer) {
+      backgroundContainer.style.background = `url(${imageUrl}) no-repeat center center`;
+      backgroundContainer.style.backgroundSize = 'cover';
+    }
   }
 
   /* MOLDURA */

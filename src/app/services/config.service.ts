@@ -11,7 +11,7 @@ export class ConfigService {
   // private apiUrl = 'http://localhost:8080/api/config';
 
    // BehaviorSubject para armazenar a URL da logo e permitir que outros componentes se inscrevam
-   private logoSource = new BehaviorSubject<string>('../../../assets/logo-be2b.jpg');
+   private logoSource = new BehaviorSubject<string>('../../../assets/logo-velejar.png');
    currentLogo = this.logoSource.asObservable();
 
   constructor(private http: HttpClient) { }
@@ -21,15 +21,17 @@ export class ConfigService {
     const formData: FormData = new FormData();
     formData.append('file', file);
 
-    return this.http.post<string>(`${this.apiUrl}/uploadLogo`, formData);
+    // Definindo responseType como 'text' para tratar a resposta como uma string (URL da imagem)
+    return this.http.post(`${this.apiUrl}/uploadLogo`, formData, { responseType: 'text' });
   }
 
-  // Método para fazer o upload do background
+  // Método para fazer o upload do Logo
   uploadBackground(file: File): Observable<string> {
     const formData: FormData = new FormData();
     formData.append('file', file);
 
-    return this.http.post<string>(`${this.apiUrl}/uploadBackground`, formData);
+    // Definindo responseType como 'text' para tratar a resposta como uma string (URL da imagem)
+    return this.http.post(`${this.apiUrl}/uploadBackground`, formData, { responseType: 'text' });
   }
 
   // Método para fazer o upload da moldura
@@ -48,9 +50,9 @@ export class ConfigService {
     return this.http.post<string>(`${this.apiUrl}/uploadQrCode`, formData);
   }
 
-  // Método para buscar o Logo
+  // Método para buscar o Logo (blob)
   getLogo(): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/Logo`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/logo`, { responseType: 'blob' });
   }
 
   // Método para buscar o background
@@ -65,10 +67,10 @@ export class ConfigService {
 
   // Método para buscar a Qr Code
   getQrCode(): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/QrCode`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/qrCode`, { responseType: 'blob' });
   }
 
-    // Método para atualizar a logo no BehaviorSubject
+  // Método para atualizar a logo no BehaviorSubject
   changeLogo(logoUrl: string) {
     this.logoSource.next(logoUrl);
   }

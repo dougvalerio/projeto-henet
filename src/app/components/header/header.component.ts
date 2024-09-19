@@ -10,14 +10,14 @@ import { ConfigService } from '../../services/config.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  logoUrl: string = '../../../assets/logo-pz.png'; // Valor padrão
+  logoUrl: string = '../../../assets/logo-velejar.png'; // Valor padrão
   menuActive = false;
 
   constructor(private configService: ConfigService) {}
 
   ngOnInit(): void {
-    // Escutar mudanças na logo a partir do serviço
     this.configService.currentLogo.subscribe((logoUrl: string) => {
+      console.log('Logo URL received in header:', logoUrl); // Verifica a URL recebida
       if (logoUrl) {
         this.logoUrl = logoUrl; // Atualiza a logo quando o valor é alterado
       }
