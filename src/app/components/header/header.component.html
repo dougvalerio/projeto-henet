@@ -2,7 +2,7 @@
   <div class="row">
     <div class="div-logo">
       <!-- <img src="../../../assets/logo-pz.png" alt="Logo"> -->
-      <img src="../../../assets/logo-velejar.png" alt="Logo" class="logo">
+      <img [src]="logoUrl || '../../../assets/logo-velejar.png'" alt="Logo" class="logo">
     </div>
 
     <div class="menu-btn" (click)="toggleMenu()">
