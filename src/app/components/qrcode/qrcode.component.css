@@ -11,7 +11,7 @@
   padding: 3rem; 
 }
 
-.qrcode img {
+.qrcode {
   width: 35rem;
   border: 10px solid #FFF;
 }

@@ -53,6 +53,7 @@ export class ConfigComponent implements OnInit {
       next: (response) => {
         console.log('Logo uploaded successfully. URL:', response);
         this.setLogo(response); // Define a logo com a URL retornada
+        this.loadSavedLogo(); // Atualiza a logo
       },
       error: (error) => {
         console.error('Error uploading logo:', error);
@@ -76,9 +77,18 @@ export class ConfigComponent implements OnInit {
   setLogo(imageUrl: string) {
     const logoElement = document.querySelector('.logo') as HTMLImageElement;
     if (logoElement) {
-      logoElement.style.backgroundImage = `url(${imageUrl})`;
-      logoElement.style.backgroundSize = 'contain';
-      logoElement.style.backgroundRepeat = 'no-repeat';
+      logoElement.src = imageUrl; // Atualiza diretamente o src da logo
+    } else {
+      // Caso o elemento não exista (se for necessário), podemos criá-lo dinamicamente
+      const newLogoElement = document.createElement('img');
+      newLogoElement.src = imageUrl;
+      newLogoElement.classList.add('logo');
+      
+      // Aqui assumimos que a logo está dentro de um contêiner com a classe 'div-logo'
+      const logoContainer = document.querySelector('.div-logo');
+      if (logoContainer) {
+        logoContainer.appendChild(newLogoElement);
+      }
     }
   }
 
@@ -89,6 +99,7 @@ export class ConfigComponent implements OnInit {
       next: (response) => {
         console.log('Background uploaded successfully:', response);
         this.setBackground(response); // Define o background com a URL retornada
+        this.loadSavedBackground();
       },
       error: (error) => {
         console.error('Error uploading background:', error);
@@ -111,11 +122,12 @@ export class ConfigComponent implements OnInit {
   setBackground(imageUrl: string) {
     const backgroundContainer = document.querySelector('.background-container') as HTMLElement;
     if (backgroundContainer) {
-      backgroundContainer.style.background = `url(${imageUrl}) no-repeat center center`;
+      backgroundContainer.style.backgroundImage = `url(${imageUrl})`; // Substitui o background existente
       backgroundContainer.style.backgroundSize = 'cover';
+      backgroundContainer.style.backgroundRepeat = 'no-repeat';
+      backgroundContainer.style.backgroundPosition = 'center';
     }
   }
-
   /* MOLDURA */
 
   uploadMoldura(file: File) {
@@ -135,6 +147,7 @@ export class ConfigComponent implements OnInit {
     this.configService.uploadQrCode(file).subscribe({
       next: (response) => {
         this.setQrCode(response); // Define o QrCode com a URL retornada
+        this.loadSavedQrCode(); // Atualiza o QrCode
         console.log('QR Code URL recebido:', response); // Certifique-se de que esta URL é correta
       },
       error: (error) => {
@@ -157,11 +170,24 @@ export class ConfigComponent implements OnInit {
   }
 
   setQrCode(imageUrl: string) {
-    const qrCodeElement = document.querySelector('.qrcode') as HTMLElement;
-    if (qrCodeElement) {
-      qrCodeElement.style.backgroundImage = `url(${imageUrl})`;
-      qrCodeElement.style.backgroundSize = 'contain';
-      qrCodeElement.style.backgroundRepeat = 'no-repeat';
+    const qrCodeContainer = document.querySelector('.div-qrcode');
+    const existingQrCode = qrCodeContainer?.querySelector('.qrcode') as HTMLImageElement;
+  
+    // Remover o QR Code existente, se houver
+    if (existingQrCode) {
+      qrCodeContainer?.removeChild(existingQrCode);
+    }
+  
+    // Criar novo elemento de imagem para o QR Code
+    const newQrCodeElement = document.createElement('img');
+    newQrCodeElement.src = imageUrl;
+    newQrCodeElement.classList.add('qrcode');
+    newQrCodeElement.alt = 'qrcode';
+  
+    // Adicionar o novo QR Code no contêiner
+    if (qrCodeContainer) {
+      qrCodeContainer.appendChild(newQrCodeElement);
     }
   }
+  
 }
