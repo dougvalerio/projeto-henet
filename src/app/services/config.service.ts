@@ -14,6 +14,9 @@ export class ConfigService {
    private logoSource = new BehaviorSubject<string>('../../../assets/logo-velejar.png');
    currentLogo = this.logoSource.asObservable();
 
+   private qrCodeSource = new BehaviorSubject<string>('../../../assets/qrcode-pz.png');
+   currentQrcode = this.qrCodeSource.asObservable();
+
   constructor(private http: HttpClient) { }
 
   // Método para fazer o upload do Logo
@@ -42,12 +45,13 @@ export class ConfigService {
     return this.http.post<string>(`${this.apiUrl}/uploadMoldura`, formData);
   }
 
-  // Método para fazer o upload do Qr Code
+  // Método para fazer o upload do Logo
   uploadQrCode(file: File): Observable<string> {
     const formData: FormData = new FormData();
     formData.append('file', file);
 
-    return this.http.post<string>(`${this.apiUrl}/uploadQrCode`, formData);
+    // Definindo responseType como 'text' para tratar a resposta como uma string (URL da imagem)
+    return this.http.post(`${this.apiUrl}/uploadQrCode`, formData, { responseType: 'text' });
   }
 
   // Método para buscar o Logo (blob)
@@ -73,5 +77,11 @@ export class ConfigService {
   // Método para atualizar a logo no BehaviorSubject
   changeLogo(logoUrl: string) {
     this.logoSource.next(logoUrl);
+  }
+
+  // Método para atualizar a URL do QR Code
+  changeQrCode(qrCodeUrl: string) {
+    console.log('Atualizando URL do QR Code:', qrCodeUrl); // Verifique se está sendo atualizado corretamente
+    this.qrCodeSource.next(qrCodeUrl);
   }
 }

@@ -12,13 +12,14 @@ export class ConfigComponent implements OnInit {
   logoPreview: string | ArrayBuffer | null = null;
   backgroundPreview: string | ArrayBuffer | null = null;
   molduraPreview: string | ArrayBuffer | null = null;
-  imagePreview: string | ArrayBuffer | null = null;
+  qrcodePreview: string | ArrayBuffer | null = null;
 
   constructor(private configService: ConfigService) {}
 
   ngOnInit(): void {
     this.loadSavedLogo();
     this.loadSavedBackground();
+    this.loadSavedQrCode();
   }
 
   onFileSelected(event: any, type: string) {
@@ -35,8 +36,10 @@ export class ConfigComponent implements OnInit {
         } else if (type === 'moldura') {
           this.uploadMoldura(file);
           this.molduraPreview = reader.result;
-        } else if (type === 'image') {
-          this.imagePreview = reader.result;
+        } else if (type === 'qrcode') {
+          this.uploadQrCode(file);  
+          this.qrcodePreview = reader.result;
+          console.log('Preview do QR Code atualizado:', this.qrcodePreview); // Log para ver se está carregando corretamente
         }
       };
       reader.readAsDataURL(file);
@@ -132,11 +135,34 @@ export class ConfigComponent implements OnInit {
   uploadQrCode(file: File) {
     this.configService.uploadQrCode(file).subscribe({
       next: (response) => {
-        console.log('QrCode uploaded successfully:', response);
+        console.log('QR Code URL recebido:', response); // Certifique-se de que esta URL é correta
+        this.configService.changeQrCode(response);  // Atualiza o QR Code com a URL retornada
       },
       error: (error) => {
-        console.error('Error uploading qrCode:', error);
+        console.error('Erro ao enviar QR Code:', error);
       }
     });
+  }
+  
+  loadSavedQrCode() {
+    this.configService.getQrCode().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        console.log("QrCode carregado:", url);
+        this.configService.changeQrCode(url); // Atualiza QR Code salvo ao iniciar
+      },
+      error: (error) => {
+        console.error('Error loading QR Code:', error);
+      }
+    });
+  }
+
+  setQrCode(imageUrl: string) {
+    const qrCodeElement = document.querySelector('.qrcode') as HTMLElement;
+    if (qrCodeElement) {
+      qrCodeElement.style.backgroundImage = `url(${imageUrl})`;
+      qrCodeElement.style.backgroundSize = 'contain';
+      qrCodeElement.style.backgroundRepeat = 'no-repeat';
+    }
   }
 }
