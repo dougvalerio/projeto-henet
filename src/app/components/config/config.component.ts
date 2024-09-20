@@ -52,8 +52,7 @@ export class ConfigComponent implements OnInit {
     this.configService.uploadLogo(file).subscribe({
       next: (response) => {
         console.log('Logo uploaded successfully. URL:', response);
-        // Atualiza a logo no BehaviorSubject, o que será refletido no componente Header
-        this.configService.changeLogo(response);
+        this.setLogo(response); // Define a logo com a URL retornada
       },
       error: (error) => {
         console.error('Error uploading logo:', error);
@@ -65,8 +64,8 @@ export class ConfigComponent implements OnInit {
     this.configService.getLogo().subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
+        this.setLogo(url); // Carrega o background previamente salvo
         console.log("Logo carregada:", url);
-        this.configService.changeLogo(url); // Atualiza logo salva ao iniciar
       },
       error: (error) => {
         console.error('Error loading logo:', error);
@@ -75,7 +74,7 @@ export class ConfigComponent implements OnInit {
   }
 
   setLogo(imageUrl: string) {
-    const logoElement = document.querySelector('.logo') as HTMLElement;
+    const logoElement = document.querySelector('.logo') as HTMLImageElement;
     if (logoElement) {
       logoElement.style.backgroundImage = `url(${imageUrl})`;
       logoElement.style.backgroundSize = 'contain';
@@ -135,8 +134,8 @@ export class ConfigComponent implements OnInit {
   uploadQrCode(file: File) {
     this.configService.uploadQrCode(file).subscribe({
       next: (response) => {
+        this.setQrCode(response); // Define o QrCode com a URL retornada
         console.log('QR Code URL recebido:', response); // Certifique-se de que esta URL é correta
-        this.configService.changeQrCode(response);  // Atualiza o QR Code com a URL retornada
       },
       error: (error) => {
         console.error('Erro ao enviar QR Code:', error);
@@ -148,8 +147,8 @@ export class ConfigComponent implements OnInit {
     this.configService.getQrCode().subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
+        this.setQrCode(url); // Carrega o QrCode previamente salvo
         console.log("QrCode carregado:", url);
-        this.configService.changeQrCode(url); // Atualiza QR Code salvo ao iniciar
       },
       error: (error) => {
         console.error('Error loading QR Code:', error);

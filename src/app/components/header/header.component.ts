@@ -10,16 +10,12 @@ import { ConfigService } from '../../services/config.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  logoUrl: string = '../../../assets/logo-velejar.png'; // Valor padrão
   menuActive = false;
 
   constructor(private configService: ConfigService) {}
 
   ngOnInit(): void {
-    this.configService.currentLogo.subscribe((logoUrl: string) => {
-      console.log('Nova logo recebida no Header:', logoUrl);
-      this.logoUrl = logoUrl; // Atualiza a logo exibida
-    });
+
   }
 
   toggleMenu() {

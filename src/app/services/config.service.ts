@@ -10,13 +10,6 @@ export class ConfigService {
   private apiUrl = 'http://177.38.244.53:9090/api/config'; // Substitua pela URL real do backend
   // private apiUrl = 'http://localhost:8080/api/config';
 
-   // BehaviorSubject para armazenar a URL da logo e permitir que outros componentes se inscrevam
-   private logoSource = new BehaviorSubject<string>('../../../assets/logo-velejar.png');
-   currentLogo = this.logoSource.asObservable();
-
-   private qrCodeSource = new BehaviorSubject<string>('../../../assets/qrcode-pz.png');
-   currentQrcode = this.qrCodeSource.asObservable();
-
   constructor(private http: HttpClient) { }
 
   // Método para fazer o upload do Logo
@@ -72,16 +65,5 @@ export class ConfigService {
   // Método para buscar a Qr Code
   getQrCode(): Observable<Blob> {
     return this.http.get(`${this.apiUrl}/qrCode`, { responseType: 'blob' });
-  }
-
-  // Método para atualizar a logo no BehaviorSubject
-  changeLogo(logoUrl: string) {
-    this.logoSource.next(logoUrl);
-  }
-
-  // Método para atualizar a URL do QR Code
-  changeQrCode(qrCodeUrl: string) {
-    console.log('Atualizando URL do QR Code:', qrCodeUrl); // Verifique se está sendo atualizado corretamente
-    this.qrCodeSource.next(qrCodeUrl);
   }
 }
