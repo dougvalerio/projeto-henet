@@ -1,10 +1,11 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FotosService } from '../../services/fotos.service';
 import { CommonModule } from '@angular/common';  // Para usar o ngFor
 import { Imagem } from '../../models/imagem';
 import { catchError, forkJoin, of, switchMap } from 'rxjs';
 import { Observable } from 'rxjs';
 import { NgZone } from '@angular/core';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-carrossel',
@@ -14,8 +15,11 @@ import { NgZone } from '@angular/core';
   styleUrl: './carrossel.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class CarrosselComponent {
-  
+export class CarrosselComponent implements OnInit {
+  logoUrl: string | null = null; // Logo que vai ser carregado
+  qrCodeUrl: string | null = null; // qrCode que vai ser carregado
+
+
   ELEMENT_DATA: Imagem[] = [];
   imagensCarregadas: string[] = []; // Lista para guardar as URLs das imagens em base64
 
@@ -31,10 +35,17 @@ export class CarrosselComponent {
 
   showQrCodePopup = false; // Controle de visibilidade do popup
 
-  constructor(private fotosService: FotosService, private zone: NgZone) {}
+
+
+  constructor(
+    private fotosService: FotosService, 
+    private configService: ConfigService,
+    private zone: NgZone) {}
 
   ngOnInit() {   
     this.findAll();
+    this.loadLogo(); // Carrega a logo ao inicializar o componente
+    this.loadQrCode(); // Carrega a o qrCode ao inicializar o componente 
     // Configura o intervalo para atualizar o carrossel a cada 10 segundos fora da zona Angular
     this.zone.runOutsideAngular(() => {
       this.intervalId = window.setInterval(() => {
@@ -100,10 +111,6 @@ export class CarrosselComponent {
     });
   }
 
-  closeQrCodePopup() {
-    this.showQrCodePopup = false; // Fecha o popup
-  }
-
   buscarFotoServidor(id: any): Observable<string> {
     return this.fotosService.getImagem(id).pipe(
       switchMap((blob: Blob) => new Observable<string>(observer => {
@@ -133,7 +140,7 @@ export class CarrosselComponent {
         reader.onload = () => {
           //this.currentQrCodeUrl = '../../../assets/qrcode-bot.png'; // URL inicial do QR Code
 
-          this.currentQrCodeUrl = reader.result as string;
+          this.qrCodeUrl = reader.result as string;
           console.log('QR Code atualizado:', this.currentQrCodeUrl);
                     
         };
@@ -180,5 +187,36 @@ export class CarrosselComponent {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
+  }
+
+  closeQrCodePopup() {
+    this.showQrCodePopup = false; // Fecha o popup
+  }
+
+  loadLogo(): void {
+    this.configService.getLogo().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        this.logoUrl = url; // Define a URL do QR Code para o template
+        console.log('QR Code carregado com sucesso:', url);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar o QR Code:', error);
+      }
+    });
+  }
+
+  loadQrCode(): void {
+    this.configService.getQrCode().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        this.qrCodeUrl = url; // Define a URL do QR Code para o template
+        this.qrCodeBut = url; // Atualiza qrCodeBut com a URL do QR Code carregado
+        console.log('QR Code carregado com sucesso:', url);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar o QR Code:', error);
+      }
+    });
   }
 }

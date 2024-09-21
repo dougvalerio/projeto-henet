@@ -16,7 +16,7 @@ body {
 
 .background-container {
   height: 100%; /* Ocupa toda a altura da página */
-  background: url("../src/assets/background-pz.jpg") no-repeat center center;
+  background: url("../src/assets/background-velejar.jpg") no-repeat center center;
   background-size: cover; /* Ajusta a imagem para cobrir toda a área */
   overflow: auto; /* Permite scroll se necessário */
 }

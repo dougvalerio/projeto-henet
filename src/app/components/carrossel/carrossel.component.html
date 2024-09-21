@@ -17,7 +17,7 @@
   </div>
     
   <div class="qrcode">
-    <img [src]="currentQrCodeUrl" alt="QR Code">
+    <img [src]="qrCodeUrl" alt="QR Code">
   </div>
 
   <div class="logo-velejar">
@@ -32,7 +32,7 @@
 
       <h4>Leia o QR Code <br> antes de baixar a sua foto: </h4>
       <img [src]="qrCodeBut" alt="QR Code Inicial" class="qrcode-popup">
-      <img src="../../../assets/logo-pz.png" alt="logo henet" class="logo-henet-popup">
+      <img [src]="logoUrl || '../../../assets/logo-pz.png'" alt="logo henet" class="logo-henet-popup">
     </div>
   </div>
 </div>
