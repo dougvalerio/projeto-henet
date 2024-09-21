@@ -67,28 +67,3 @@ img {
   align-items: center;
 }
 
-/* Estilo para o botão de salvar */
-.save-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 30px;
-}
-
-/* Estilo para o botão de salvar */
-.save-button {
-  padding: 1rem 2rem;
-  background-color: #28a745; /* Alterado para fundo verde */
-  border: 2px solid #28a745; /* Borda verde */
-  border-radius: 5px;
-  color: white; /* Texto branco */
-  font-size: 2rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.save-button:hover {
-  background-color: #218838; /* Verde mais escuro no hover */
-  color: white;
-}
-
