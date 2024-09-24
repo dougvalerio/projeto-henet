@@ -7,7 +7,9 @@
       <h2>Logo:</h2>
       <label for="logo" class="custom-file-input">Carregar</label>
       <input type="file" id="logo" (change)="onFileSelected($event, 'logo')" hidden />
-      <button type="button" class="view-btn" (click)="openImagePopup('logo')">👁️</button>
+      <button type="button" class="view-btn" (click)="openImagePopup('logo')">
+        <i class="fas fa-eye"></i>
+      </button>
     </div>
   
     <!-- Input para carregar o background -->
@@ -15,7 +17,9 @@
       <h2>Background:</h2>
       <label for="background" class="custom-file-input">Carregar</label>
       <input type="file" id="background" (change)="onFileSelected($event, 'background')" hidden />
-      <button type="button" class="view-btn" (click)="openImagePopup('background')">👁️</button>
+      <button type="button" class="view-btn" (click)="openImagePopup('background')">
+        <i class="fas fa-eye"></i>
+      </button>
     </div>
   
     <!-- Input para carregar a moldura -->
@@ -23,7 +27,9 @@
       <h2>Moldura Foto:</h2>
       <label for="moldura" class="custom-file-input">Carregar</label>
       <input type="file" id="moldura" (change)="onFileSelected($event, 'moldura')" hidden />
-      <button type="button" class="view-btn" (click)="openImagePopup('moldura')">👁️</button>
+      <button type="button" class="view-btn" (click)="openImagePopup('moldura')">
+        <i class="fas fa-eye"></i>
+      </button>
     </div>
   
     <!-- Input para carregar o QR Code -->
@@ -31,7 +37,9 @@
       <h2>QR Code:</h2>
       <label for="qrcode" class="custom-file-input">Carregar</label>
       <input type="file" id="qrcode" (change)="onFileSelected($event, 'qrcode')" hidden />
-      <button type="button" class="view-btn" (click)="openImagePopup('qrcode')">👁️</button>
+      <button type="button" class="view-btn" (click)="openImagePopup('qrcode')">
+        <i class="fas fa-eye"></i>
+      </button>
     </div>
   </form>
 
