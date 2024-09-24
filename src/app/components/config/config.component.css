@@ -7,17 +7,13 @@ html, body {
 .container {
   width: 100%;
   min-height: 100vh;
-  
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
-
   padding: 3rem;
 }
 
-/* Estilos para o título */
 h1 {
   color: #FFF;
   margin-bottom: 5rem;
@@ -33,17 +29,17 @@ h2 {
 .custom-file-input {
   display: inline-block;
   padding: 2rem 4rem;
-  background-color: #007bff; /* Cor azul como no botão Salvar */
-  border: 3px solid #007bff; /* Borda igual ao botão Salvar */
-  border-radius: 5px; /* Mesmo estilo de borda */
-  color: white; /* Texto branco */
-  font-size: 2rem; /* Ajustando para o mesmo tamanho */
+  background-color: #007bff;
+  border: 3px solid #007bff;
+  border-radius: 5px;
+  color: white;
+  font-size: 2rem;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .custom-file-input:hover {
-  background-color: #0056b3; /* Mesma cor de hover do botão Salvar */
+  background-color: #0056b3;
   color: white;
 }
 
@@ -51,19 +47,66 @@ input[type="file"] {
   display: none;
 }
 
-/* Estilos para os previews de imagem */
-img {
-  margin-top: 10px;
-  display: block;
-  max-width: 200px;
+/* Estilos para os botões de visualização (ícone de olho) */
+.view-btn {
+  background-color: #007bff;
+  border: 3px solid #007bff;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Centralizar cada input de arquivo */
-.file-input-container {
-  margin-bottom: 3rem;
+.view-btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.9);
 }
 
+.modal.show {
+  display: block;
+}
+
+.modal-content {
+  position: relative;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover, .close-btn:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}

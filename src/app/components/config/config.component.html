@@ -7,27 +7,39 @@
       <h2>Logo:</h2>
       <label for="logo" class="custom-file-input">Carregar</label>
       <input type="file" id="logo" (change)="onFileSelected($event, 'logo')" hidden />
+      <button type="button" class="view-btn" (click)="openImagePopup('logo')">👁️</button>
     </div>
-
+  
     <!-- Input para carregar o background -->
     <div class="file-input-container">
       <h2>Background:</h2>
       <label for="background" class="custom-file-input">Carregar</label>
       <input type="file" id="background" (change)="onFileSelected($event, 'background')" hidden />
+      <button type="button" class="view-btn" (click)="openImagePopup('background')">👁️</button>
     </div>
-
-     <!-- Input para carregar a moldura -->
-     <div class="file-input-container">
+  
+    <!-- Input para carregar a moldura -->
+    <div class="file-input-container">
       <h2>Moldura Foto:</h2>
       <label for="moldura" class="custom-file-input">Carregar</label>
       <input type="file" id="moldura" (change)="onFileSelected($event, 'moldura')" hidden />
+      <button type="button" class="view-btn" (click)="openImagePopup('moldura')">👁️</button>
     </div>
-
-    <!-- Input para carregar uma imagem comum -->
+  
+    <!-- Input para carregar o QR Code -->
     <div class="file-input-container">
       <h2>QR Code:</h2>
-      <label for="qrcode" class="custom-file-input">Carregar</label> 
+      <label for="qrcode" class="custom-file-input">Carregar</label>
       <input type="file" id="qrcode" (change)="onFileSelected($event, 'qrcode')" hidden />
+      <button type="button" class="view-btn" (click)="openImagePopup('qrcode')">👁️</button>
     </div>
   </form>
+
+  <!-- Modal Popup -->
+  <div class="modal" [ngClass]="{'show': showModal}">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeImagePopup()">&times;</span>
+      <img *ngIf="imageToShow" [src]="imageToShow" alt="Image Preview" />
+    </div>
+  </div>
 </div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../services/config.service';
+import { CommonModule } from '@angular/common';  // Adicione isto
 
 @Component({
   selector: 'app-config',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './config.component.html',
   styleUrl: './config.component.css'
 })
@@ -13,6 +14,8 @@ export class ConfigComponent implements OnInit {
   backgroundPreview: string | ArrayBuffer | null = null;
   molduraPreview: string | ArrayBuffer | null = null;
   qrcodePreview: string | ArrayBuffer | null = null;
+  showModal: boolean = false;
+  imageToShow: string | ArrayBuffer | null = null;
 
   constructor(private configService: ConfigService) {}
 
@@ -44,6 +47,60 @@ export class ConfigComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+ // Função chamada ao clicar no botão de visualização
+ openImagePopup(type: string) {
+  if (type === 'logo') {
+    this.configService.getLogo().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        this.imageToShow = url;
+        this.showModal = true;
+      },
+      error: (error) => {
+        console.error('Error loading logo:', error);
+      }
+    });
+  } else if (type === 'background') {
+    this.configService.getBackground().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        this.imageToShow = url;
+        this.showModal = true;
+      },
+      error: (error) => {
+        console.error('Error loading background:', error);
+      }
+    });
+  } else if (type === 'moldura') {
+    this.configService.getMoldura().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        this.imageToShow = url;
+        this.showModal = true;
+      },
+      error: (error) => {
+        console.error('Error loading moldura:', error);
+      }
+    });
+  } else if (type === 'qrcode') {
+    this.configService.getQrCode().subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        this.imageToShow = url;
+        this.showModal = true;
+      },
+      error: (error) => {
+        console.error('Error loading QR Code:', error);
+      }
+    });
+  }
+}
+
+  closeImagePopup() {
+    this.showModal = false;
+    this.imageToShow = null;
   }
 
   /* LOGO */
