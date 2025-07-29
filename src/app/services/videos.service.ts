@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Video } from '../models/video';
+import { API_CONFIG } from '../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VideosService {
 
-  private apiUrl = 'http://177.38.244.53:8082/api/videos';
-  // private apiUrl = 'http://localhost:8080/api/videos'; // Para ambiente local
+  private apiUrl = `${API_CONFIG.baseUrl}/api/videos`;
 
   constructor(private http: HttpClient) { }
 

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { API_CONFIG } from '../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
   
-  private apiUrl = 'http://177.38.244.53:8082/api/config'; // Substitua pela URL real do backend
-  // private apiUrl = 'http://localhost:8080/api/config';
+  private apiUrl = `${API_CONFIG.baseUrl}/api/config`; 
 
   constructor(private http: HttpClient) { }
 
