@@ -1,0 +1,8 @@
+<div class="webcam-container">
+  <h2>Gravação de Vídeo</h2>
+  <video #videoElement autoplay muted playsinline class="webcam-video"></video>
+  <div class="dialog-actions">
+    <button mat-raised-button color="warn" (click)="stopRecording()">Parar e Salvar</button>
+    <button mat-raised-button (click)="cancel()">Cancelar</button>
+  </div>
+</div>

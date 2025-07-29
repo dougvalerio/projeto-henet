@@ -1,7 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { FotosService } from '../../services/fotos.service';
 import { VideosService } from '../../services/videos.service';
+import { WebcamComponent } from '../webcam/webcam.component';
 
 @Component({
   selector: 'app-upload',
@@ -10,17 +12,19 @@ import { VideosService } from '../../services/videos.service';
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.css'
 })
-export class UploadComponent {
-  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
-  mediaRecorder: MediaRecorder | null = null;
-  recordedChunks: Blob[] = [];
-  isRecording: boolean = false;
+export class UploadComponent implements OnInit {
+  isMobile: boolean = false;
 
   constructor(
     private fotosService: FotosService,
     private videosService: VideosService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
+
+  ngOnInit(): void {
+    this.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
 
   carregarFoto(event: any): void {
     const file: File = event.target.files[0];
@@ -68,60 +72,17 @@ export class UploadComponent {
     }
   }
 
-  async startRecording(): Promise<void> {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
+  startRecording(): void {
+    if (this.isMobile) {
+      // No celular, dispara o input de vídeo para abrir a câmera nativa
+      const videoInput = document.getElementById('videoInput') as HTMLInputElement;
+      videoInput.click();
+    } else {
+      // No desktop, abre um popup com a webcam
+      this.dialog.open(WebcamComponent, {
+        width: '700px',
+        disableClose: true
       });
-      if (this.videoElement) {
-        this.videoElement.nativeElement.srcObject = stream;
-      }
-      this.recordedChunks = [];
-      this.mediaRecorder = new MediaRecorder(stream);
-      this.mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          this.recordedChunks.push(event.data);
-        }
-      };
-      this.mediaRecorder.start();
-      this.isRecording = true;
-    } catch (error) {
-      console.error('Erro ao acessar a câmera:', error);
-      this.snackBar.open('Erro ao acessar a câmera.', 'Fechar', {
-        duration: 3000,
-      });
-    }
-  }
-
-  stopRecording(): void {
-    if (this.mediaRecorder) {
-      this.mediaRecorder.stop();
-      this.mediaRecorder.onstop = () => {
-        const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
-        const formData = new FormData();
-        formData.append('file', blob, 'recorded-video.webm');
-
-        this.videosService.uploadVideo(formData).subscribe({
-          next: (response) => {
-            console.log('Vídeo gravado enviado com sucesso', response);
-            this.snackBar.open('Vídeo carregado com sucesso!', 'Fechar', {
-              duration: 3000,
-            });
-          },
-          error: (error) => {
-            console.error('Erro ao enviar vídeo', error);
-            this.snackBar.open('Erro ao carregar o vídeo.', 'Fechar', {
-              duration: 3000,
-            });
-          }
-        });
-
-        // Limpar o stream da câmera
-        const stream = this.videoElement?.nativeElement.srcObject as MediaStream;
-        stream?.getTracks().forEach(track => track.stop());
-        this.isRecording = false;
-      };
     }
   }
 }

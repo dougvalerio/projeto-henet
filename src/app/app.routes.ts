@@ -8,12 +8,14 @@ import { ConfigComponent } from './components/config/config.component';
 import { CarrosselComponent } from './components/carrossel/carrossel.component';
 import { FeedbackComponent } from './components/feedback/feedback.component';
 import { ListafeedbackComponent } from './components/listafeedback/listafeedback.component';
+import { GaleriaVideoComponent } from './components/galeria-video/galeria-video.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redireciona o caminho vazio para /home
   { path: 'home', component: HomeComponent },
   { path: 'carrossel', component: CarrosselComponent },
   { path: 'galeria', component: GaleriaComponent },
+  { path: 'galeria-video', component: GaleriaVideoComponent },
   { path: 'qrcode', component: QrcodeComponent },
   { path: 'upload', component: UploadComponent },
   { path: 'config', component: ConfigComponent },
