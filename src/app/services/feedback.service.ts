@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FeedbackService {
-  private apiUrl = 'http://177.38.244.53:9090/api/depoimentos'; // ajuste conforme o seu servidor
+  private apiUrl = 'http://177.38.244.53:8082/api/depoimentos'; // ajuste conforme o seu servidor
 
   constructor(private http: HttpClient) { }
 

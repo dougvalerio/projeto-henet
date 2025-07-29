@@ -1,7 +1,22 @@
 <div class="container">
   <div class="carregar-img">
-    <h1>Carregue uma imagem: </h1>
-    <input type="file" id="fileInput" (change)="carregarFoto($event)">
-    <label for="fileInput">Selecionar arquivo</label>
+    <h1>Carregue uma imagem ou vídeo:</h1>
+    <div class="button-group">
+      <input type="file" id="photoInput" accept="image/*" (change)="carregarFoto($event)">
+      <input type="file" id="videoInput" accept="video/*" (change)="carregarVideo($event)">
+      <button class="record-btn" (click)="startRecording()">
+        <span class="material-icons">videocam</span> Gravar Vídeo
+      </button>
+      <button class="record-btn" *ngIf="isRecording" (click)="stopRecording()">
+        <span class="material-icons">stop</span> Parar Gravação
+      </button>
+      <label for="photoInput">
+        <span class="material-icons">upload</span> Carregar Foto
+      </label>
+      <label for="videoInput">
+        <span class="material-icons">upload</span> Carregar Vídeo
+      </label>
+    </div>
+    <video #videoElement *ngIf="isRecording" autoplay muted></video>
   </div>
 </div>

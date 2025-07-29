@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ConfigService {
   
-  private apiUrl = 'http://177.38.244.53:9090/api/config'; // Substitua pela URL real do backend
+  private apiUrl = 'http://177.38.244.53:8082/api/config'; // Substitua pela URL real do backend
   // private apiUrl = 'http://localhost:8080/api/config';
 
   constructor(private http: HttpClient) { }
