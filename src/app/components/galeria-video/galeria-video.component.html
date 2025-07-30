@@ -2,7 +2,7 @@
   <div class="galeria">
     <mat-grid-list cols="4" rowHeight="5:7" gutterSize="10px">
       <mat-grid-tile *ngFor="let video of videos; let i = index" (click)="openVideoPopup(video, videosIds[i])">
-        <video [src]="video" controls muted preload="metadata">
+        <video [src]="video" muted preload="auto">
           Seu navegador não suporta o elemento de vídeo.
         </video>
       </mat-grid-tile>
@@ -13,11 +13,10 @@
   <div *ngIf="isPopupOpen" class="popup">
     <div class="popup-content">
       <button class="close-button" (click)="closeVideoPopup()">✕</button>
-      <video [src]="selectedVideoSrc" controls autoplay>
+      <video [src]="selectedVideoSrc" controls autoplay muted>
         Seu navegador não suporta o elemento de vídeo.
       </video>
       <img *ngIf="selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">
-      <button class="delete-button" (click)="deleteVideoPopup()"><img src="../../../assets/lixeira.png" alt=""></button>
+      <button class="delete-button" (click)="deleteVideoPopup()"><img src="../../../assets/lixeira.png" alt="Botão de excluir"></button>
     </div>
   </div>
-</div>
