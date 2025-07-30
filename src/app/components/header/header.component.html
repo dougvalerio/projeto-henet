@@ -1,23 +1,38 @@
 <div class="container">
   <div class="row">
     <div class="div-logo">
-      <!-- <img src="../../../assets/logo-pz.png" alt="Logo"> -->
       <img [src]="logoUrl || '../../../assets/logo-velejar.png'" alt="Logo" class="logo">
     </div>
 
     <div class="menu-btn" (click)="toggleMenu()">
-      <span class="menu-icon">&#9776;</span> <!-- Ícone do menu -->
+      <span class="menu-icon">&#9776;</span>
     </div>
 
     <div class="navegacao" [class.active]="menuActive">
-      <ul>
-        <li><a routerLink="/home">Home</a></li>
-        <li><a routerLink="/carrossel">Carrossel Foto</a></li>
-        <li><a routerLink="/carrossel-video">Carrossel Video</a></li>
-        <li><a routerLink="/galeria">Galeria Foto</a></li>
-        <li><a routerLink="/galeria-video">Galeria Video</a></li>
-        <li><a routerLink="/qrcode">QR Code</a></li>
-        <li><a routerLink="/feedback">Feedback</a></li>
+      <div class="close-btn" (click)="toggleMenu()">✕</div>
+      <ul class="menu-list">
+        <li><i class="fas fa-home"></i><a routerLink="/home">Home</a></li>
+        <li class="dropdown">
+          <i class="fas fa-images"></i><a class="dropdown-toggle">Carrossel</a>
+          <ul class="dropdown-menu">
+            <li><span class="dropdown-dot"></span><a routerLink="/carrossel">Carrossel Fotos</a></li>
+            <li><span class="dropdown-dot"></span><a routerLink="/carrossel-video">Carrossel Vídeos</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <i class="fas fa-photo-video"></i><a class="dropdown-toggle">Galeria</a>
+          <ul class="dropdown-menu">
+            <li><span class="dropdown-dot"></span><a routerLink="/galeria">Galeria Fotos</a></li>
+            <li><span class="dropdown-dot"></span><a routerLink="/galeria-video">Galeria Vídeos</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <i class="fas fa-ellipsis-h"></i><a class="dropdown-toggle">Outros</a>
+          <ul class="dropdown-menu">
+            <li><span class="dropdown-dot"></span><a routerLink="/qrcode">QR Code</a></li>
+            <li><span class="dropdown-dot"></span><a routerLink="/feedback">Feedback</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

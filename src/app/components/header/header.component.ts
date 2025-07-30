@@ -16,14 +16,14 @@ export class HeaderComponent {
   constructor(private configService: ConfigService) {}
 
   ngOnInit(): void {
-
+    this.loadQrCode();
   }
   
   loadQrCode(): void {
     this.configService.getQrCode().subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
-        this.logoUrl = url; // Define a URL do QR Code para o template
+        this.logoUrl = url;
         console.log('QR Code carregado com sucesso:', url);
       },
       error: (error) => {
