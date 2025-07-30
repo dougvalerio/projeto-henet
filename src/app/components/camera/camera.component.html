@@ -1,0 +1,19 @@
+<div class="camera-container">
+  <h2>Câmera</h2>
+  <video id="cameraPreview" autoplay playsinline></video>
+  <canvas id="cameraCanvas" style="display: none;"></canvas>
+  <div class="button-group">
+    <button *ngIf="!isRecording" (click)="capturePhoto()" class="camera-btn">
+      <span class="material-icons">photo_camera</span> Tirar Foto
+    </button>
+    <button *ngIf="!isRecording" (click)="startVideoRecording()" class="camera-btn">
+      <span class="material-icons">videocam</span> Gravar Vídeo
+    </button>
+    <button *ngIf="isRecording" (click)="stopVideoRecording()" class="camera-btn stop-btn">
+      <span class="material-icons">stop</span> Parar Gravação
+    </button>
+    <button (click)="closeDialog()" class="camera-btn">
+      <span class="material-icons">close</span> Fechar
+    </button>
+  </div>
+</div>

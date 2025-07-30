@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { FotosService } from '../../services/fotos.service';
 import { VideosService } from '../../services/videos.service';
-import { WebcamComponent } from '../webcam/webcam.component';
+import { CameraComponent } from '../camera/camera.component';
 
 @Component({
   selector: 'app-upload',
@@ -72,17 +72,50 @@ export class UploadComponent implements OnInit {
     }
   }
 
-  startRecording(): void {
-    if (this.isMobile) {
-      // No celular, dispara o input de vídeo para abrir a câmera nativa
-      const videoInput = document.getElementById('videoInput') as HTMLInputElement;
-      videoInput.click();
-    } else {
-      // No desktop, abre um popup com a webcam
-      this.dialog.open(WebcamComponent, {
-        width: '700px',
-        disableClose: true
-      });
-    }
+  openCameraDialog(): void {
+    const dialogRef = this.dialog.open(CameraComponent, {
+      width: this.isMobile ? '90%' : '700px',
+      disableClose: true,
+      data: { isMobile: this.isMobile }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const formData = new FormData();
+        formData.append('file', result.file);
+
+        if (result.type === 'photo') {
+          this.fotosService.uploadFoto(formData).subscribe({
+            next: (response) => {
+              console.log('Foto capturada carregada com sucesso', response);
+              this.snackBar.open('Foto capturada com sucesso!', 'Fechar', {
+                duration: 3000,
+              });
+            },
+            error: (error) => {
+              console.error('Erro no upload da foto capturada', error);
+              this.snackBar.open('Erro ao carregar a foto capturada.', 'Fechar', {
+                duration: 3000,
+              });
+            }
+          });
+        } else if (result.type === 'video') {
+          this.videosService.uploadVideo(formData).subscribe({
+            next: (response) => {
+              console.log('Vídeo capturado carregado com sucesso', response);
+              this.snackBar.open('Vídeo capturado com sucesso!', 'Fechar', {
+                duration: 3000,
+              });
+            },
+            error: (error) => {
+              console.error('Erro no upload do vídeo capturado', error);
+              this.snackBar.open('Erro ao carregar o vídeo capturado.', 'Fechar', {
+                duration: 3000,
+              });
+            }
+          });
+        }
+      }
+    });
   }
 }
