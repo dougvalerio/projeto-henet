@@ -4,7 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .carregar-img {
@@ -12,12 +13,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  max-width: 800px;
 }
 
 .carregar-img h1 {
   color: #FFF;
-  font-size: 3rem;
-  margin-bottom: 2rem;
+  font-size: 3.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-weight: 500;
 }
 
 .carregar-img input[type="file"] {
@@ -27,51 +32,119 @@
 .carregar-img .button-group {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 25px;
+  width: 100%;
+  align-items: center;
 }
 
-.carregar-img label,
-.carregar-img .record-btn {
+.carregar-img .action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 3rem 5rem;
-  color: #FFF;
+  font-size: 31.2px;
+  padding: 26px 52px;
+  margin: 0;
+  width: 390px;
   background-color: transparent;
-  border: 5px solid #FFF;
-  border-radius: 40px;
+  color: #FFF;
+  border: 2px solid #FFF;
+  border-radius: 26px;
   cursor: pointer;
-  font-size: 4rem;
-  text-align: center;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box;
 }
 
-.carregar-img label:hover,
-.carregar-img .record-btn:hover {
-  background-color: red;
-  color: #FFF;
+.carregar-img .action-btn:hover {
+  background-color: #FFF;
+  color: #000;
 }
 
 .carregar-img .material-icons {
-  font-size: 2.5rem;
+  margin-right: 15.6px;
+  font-size: 36.4px;
 }
 
-/* Estilos para dispositivos móveis */
-@media (max-width: 768px) {
+/* Estilos para tablets (resoluções entre 768px e 1080px) */
+@media (max-width: 1080px) {
   .carregar-img h1 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
   }
 
-  .carregar-img label,
-  .carregar-img .record-btn {
-    padding: 2rem 3rem;
-    font-size: 2rem;
-    border-width: 8px;
+  .carregar-img .action-btn {
+    font-size: 30px;
+    padding: 20px 40px;
+    width: 390px;
+    border-radius: 20px;
+    margin-bottom: 20px;
   }
 
   .carregar-img .material-icons {
-    font-size: 1.5rem;
+    font-size: 28px;
+    margin-right: 12px;
+  }
+
+  .carregar-img .button-group {
+    gap: 20px;
+  }
+
+  .container {
+    padding: 1.5rem;
+  }
+}
+
+/* Estilos para smartphones (resoluções até 768px) */
+@media (max-width: 768px) {
+  .carregar-img h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .carregar-img .action-btn {
+    font-size: 18px;
+    padding: 15px 30px;
+    width: 280px;
+    border-radius: 15px;
+  }
+
+  .carregar-img .material-icons {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  .carregar-img .button-group {
+    gap: 15px;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+}
+
+/* Estilos para telas muito pequenas (abaixo de 480px, ex.: smartphones antigos) */
+@media (max-width: 480px) {
+  .carregar-img h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .carregar-img .action-btn {
+    font-size: 14px;
+    padding: 12px 24px;
+    width: 220px;
+    border-radius: 12px;
+  }
+
+  .carregar-img .material-icons {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+
+  .carregar-img .button-group {
+    gap: 10px;
+  }
+
+  .container {
+    padding: 0.5rem;
   }
 }

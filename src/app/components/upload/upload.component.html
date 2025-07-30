@@ -2,15 +2,15 @@
   <div class="carregar-img">
     <h1>Carregue uma imagem ou vídeo:</h1>
     <div class="button-group">
-      <button class="record-btn" (click)="openCameraDialog()">
+      <button class="action-btn" (click)="openCameraDialog()">
         <span class="material-icons">camera_alt</span> Abrir Câmera
       </button>
       <input type="file" id="photoInput" accept="image/*" (change)="carregarFoto($event)">
       <input type="file" id="videoInput" accept="video/*" (change)="carregarVideo($event)">
-      <label for="photoInput">
+      <label for="photoInput" class="action-btn">
         <span class="material-icons">upload</span> Carregar Foto
       </label>
-      <label for="videoInput">
+      <label for="videoInput" class="action-btn">
         <span class="material-icons">upload</span> Carregar Vídeo
       </label>
     </div>
