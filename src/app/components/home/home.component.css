@@ -15,38 +15,38 @@ body, html {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  position: relative; /* Adicionado para permitir o posicionamento absoluto da logo */
+  position: relative;
 }
 
 .menu-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 31.2px; /* Aumentado em 30% */
-  padding: 26px 52px; /* Aumentado em 30% */
-  margin: 25px 0;
-  width: 390px; /* Aumentado em 30% */
-  background-color: transparent; /* Torna o botão transparente */
-  color: #FFF; /* Cor do texto e bordas */
-  border: 2px solid #FFF; /* Borda visível */
-  border-radius: 26px; /* Aumentado em 30% */
+  font-size: 36px; /* Aumentado em ~15% em relação ao anterior (31.2px) */
+  padding: 30px 60px; /* Aumentado em ~15% em relação ao anterior (26px 52px) */
+  margin: 30px 0; /* Aumentado em ~20% em relação ao anterior (25px) */
+  width: 450px; /* Aumentado em ~15% em relação ao anterior (390px) */
+  background-color: transparent;
+  color: #FFF;
+  border: 3px solid #FFF; /* Borda um pouco mais grossa para acompanhar o aumento */
+  border-radius: 30px; /* Aumentado em ~15% em relação ao anterior (26px) */
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .menu-btn i {
-  margin-right: 15.6px; /* Aumentado em 30% */
-  font-size: 36.4px; /* Aumentado em 30% */
+  margin-right: 18px; /* Aumentado em ~15% em relação ao anterior (15.6px) */
+  font-size: 42px; /* Aumentado em ~15% em relação ao anterior (36.4px) */
 }
 
 .menu-btn:hover {
-  background-color: #FFF; /* Cor de fundo ao passar o mouse */
-  color: #000; /* Cor do texto ao passar o mouse */
+  background-color: #FFF;
+  color: #000;
 }
 
 .logo-velejar {
-  position: absolute; /* Faz a div ficar fora do fluxo normal do documento */
-  bottom: 30px; /* Posiciona 20px acima do final da tela */
+  position: absolute;
+  bottom: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,7 +60,56 @@ body, html {
 
 .logo-velejar img {
   width: 13rem;
-
   margin: 0;
   padding: 0;
+}
+
+/* Media Query para tablets e dispositivos móveis */
+@media (max-width: 1080px) {
+  .menu-btn {
+    font-size: 24px;
+    padding: 20px 40px;
+    margin: 15px 0;
+    width: 300px;
+    border-radius: 20px;
+    border: 2px solid #FFF; /* Volta para borda de 2px em telas menores */
+  }
+
+  .menu-btn i {
+    margin-right: 12px;
+    font-size: 28px;
+  }
+
+  .logo-velejar p {
+    font-size: 1.2rem;
+  }
+
+  .logo-velejar img {
+    width: 10rem;
+  }
+}
+
+/* Media Query para dispositivos móveis menores (ex.: celulares com largura < 600px) */
+@media (max-width: 600px) {
+  .menu-btn {
+    font-size: 18px;
+    padding: 15px 30px;
+    margin: 10px 0;
+    width: 250px;
+    border-radius: 15px;
+    border: 2px solid #FFF;
+  }
+
+  .menu-btn i {
+    margin-right: 10px;
+    font-size: 22px;
+  }
+
+  .logo-velejar p {
+    font-size: 1rem;
+  }
+
+  .logo-velejar img {
+    width: 8rem;
+  }
 }
