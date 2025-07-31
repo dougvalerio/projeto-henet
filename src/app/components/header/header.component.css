@@ -33,7 +33,7 @@
 .navegacao ul.menu-list {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -173,18 +173,24 @@
 
   .navegacao ul.menu-list {
     flex-direction: column;
-    gap: 1.5rem;
     margin-top: 3rem;
     padding: 0;
+    align-items: flex-start;
   }
 
   .navegacao ul li {
     gap: 1.2rem;
     width: 100%;
+    display: flex;
+    align-items: center;
   }
 
   .navegacao ul li a {
     font-size: 1.8rem;
+  }
+
+  .desktop-icon {
+    display: none; /* Esconde ícones dos itens principais no modo hamburguer */
   }
 
   .dropdown-menu {
@@ -200,7 +206,7 @@
   }
 
   .dropdown-menu li {
-    margin: 0.5rem 0;
+    margin: 1.5rem 0;
     display: flex;
     align-items: center;
     gap: 1.2rem;
@@ -208,7 +214,15 @@
   }
 
   .dropdown-menu li a {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .dropdown-menu li i {
+    color: white;
+    font-size: 1.6rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    flex-shrink: 0;
   }
 
   .dropdown-dot {
