@@ -2,17 +2,24 @@
   <div class="carregar-img">
     <h1>Carregue uma imagem ou vídeo:</h1>
     <div class="button-group">
-      <button class="action-btn" (click)="openCameraDialog()">
+      <button class="action-btn" (click)="openCameraDialog()" [disabled]="isUploading">
         <span class="material-icons">camera_alt</span> Abrir Câmera
       </button>
-      <input type="file" id="photoInput" accept="image/*" (change)="carregarFoto($event)">
-      <input type="file" id="videoInput" accept="video/*" capture="environment" (change)="carregarVideo($event)">
-      <label for="photoInput" class="action-btn">
+      <input type="file" id="photoInput" accept="image/*" (change)="carregarFoto($event)" [disabled]="isUploading">
+      <input type="file" id="videoInput" accept="video/*" capture="environment" (change)="carregarVideo($event)" [disabled]="isUploading">
+      <label for="photoInput" class="action-btn" [ngClass]="{'disabled': isUploading}">
         <span class="material-icons">upload</span> Carregar Foto
       </label>
-      <label for="videoInput" class="action-btn">
+      <label for="videoInput" class="action-btn" [ngClass]="{'disabled': isUploading}">
         <span class="material-icons">upload</span> Carregar Vídeo
       </label>
+    </div>
+  </div>
+  <!-- Tela de carregamento -->
+  <div class="loading-overlay" *ngIf="isUploading">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p>{{ uploadMessage }}</p>
     </div>
   </div>
 </div>

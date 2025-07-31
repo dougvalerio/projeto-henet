@@ -4,16 +4,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { FotosService } from '../../services/fotos.service';
 import { VideosService } from '../../services/videos.service';
 import { CameraComponent } from '../camera/camera.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.css'
 })
 export class UploadComponent implements OnInit {
   isMobile: boolean = false;
+  isUploading: boolean = false;
+  uploadMessage: string = '';
 
   constructor(
     private fotosService: FotosService,
@@ -29,6 +32,8 @@ export class UploadComponent implements OnInit {
   carregarFoto(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
+      this.isUploading = true;
+      this.uploadMessage = 'ENVIANDO FOTO';
       const formData = new FormData();
       formData.append('file', file);
 
@@ -38,12 +43,14 @@ export class UploadComponent implements OnInit {
           this.snackBar.open('Foto carregada com sucesso!', 'Fechar', {
             duration: 3000,
           });
+          this.isUploading = false;
         },
         error: (error) => {
           console.error('Erro no upload da foto', error);
           this.snackBar.open('Erro ao carregar a foto.', 'Fechar', {
             duration: 3000,
           });
+          this.isUploading = false;
         }
       });
     }
@@ -52,6 +59,8 @@ export class UploadComponent implements OnInit {
   carregarVideo(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
+      this.isUploading = true;
+      this.uploadMessage = 'ENVIANDO VÍDEO';
       const formData = new FormData();
       formData.append('file', file);
 
@@ -61,12 +70,14 @@ export class UploadComponent implements OnInit {
           this.snackBar.open('Vídeo carregado com sucesso!', 'Fechar', {
             duration: 3000,
           });
+          this.isUploading = false;
         },
         error: (error) => {
           console.error('Erro no upload do vídeo', error);
           this.snackBar.open('Erro ao carregar o vídeo.', 'Fechar', {
             duration: 3000,
           });
+          this.isUploading = false;
         }
       });
     }
@@ -81,6 +92,8 @@ export class UploadComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.isUploading = true;
+        this.uploadMessage = result.type === 'photo' ? 'ENVIANDO FOTO' : 'ENVIANDO VÍDEO';
         const formData = new FormData();
         formData.append('file', result.file);
 
@@ -91,12 +104,14 @@ export class UploadComponent implements OnInit {
               this.snackBar.open('Foto capturada com sucesso!', 'Fechar', {
                 duration: 3000,
               });
+              this.isUploading = false;
             },
             error: (error) => {
               console.error('Erro no upload da foto capturada', error);
               this.snackBar.open('Erro ao carregar a foto capturada.', 'Fechar', {
                 duration: 3000,
               });
+              this.isUploading = false;
             }
           });
         } else if (result.type === 'video') {
@@ -106,12 +121,14 @@ export class UploadComponent implements OnInit {
               this.snackBar.open('Vídeo capturado com sucesso!', 'Fechar', {
                 duration: 3000,
               });
+              this.isUploading = false;
             },
             error: (error) => {
               console.error('Erro no upload do vídeo capturado', error);
               this.snackBar.open('Erro ao carregar o vídeo capturado.', 'Fechar', {
                 duration: 3000,
               });
+              this.isUploading = false;
             }
           });
         }
