@@ -18,6 +18,8 @@ import { NgZone } from '@angular/core';
 export class CarrosselVideoComponent implements OnInit, OnDestroy {
   logoUrl: string | null = null;
   qrCodeUrl: string | null = null;
+  isLoading: boolean = true; // Controle de loading
+  hasPopupBeenShown: boolean = false; // Controle para exibir popup apenas uma vez
 
   ELEMENT_DATA: Video[] = [];
   videosCarregados: string[] = [];
@@ -36,9 +38,7 @@ export class CarrosselVideoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.findAll();
-    this.loadLogo();
-    this.loadQrCode();
+    this.loadInitialData();
     this.zone.runOutsideAngular(() => {
       this.intervalId = window.setInterval(() => {
         this.zone.run(() => {
@@ -48,12 +48,44 @@ export class CarrosselVideoComponent implements OnInit, OnDestroy {
     });
   }
 
+  loadInitialData() {
+    this.isLoading = true;
+    
+    forkJoin({
+      logo: this.configService.getLogo().pipe(catchError(() => of(null))),
+      qrCode: this.configService.getQrCode().pipe(catchError(() => of(null))),
+      videos: this.videosService.getCarrosselVideos()
+    }).subscribe({
+      next: ({ logo, qrCode, videos }) => {
+        // Processa logo
+        if (logo) {
+          this.logoUrl = URL.createObjectURL(logo);
+        }
+
+        // Processa QR Code inicial para o popup
+        if (qrCode) {
+          this.qrCodeBut = URL.createObjectURL(qrCode);
+        }
+
+        // Processa vídeos
+        this.ELEMENT_DATA = videos.sort((a, b) => b.id - a.id);
+        this.baixarVideos();
+      },
+      error: (error) => {
+        console.error('Erro ao carregar dados iniciais:', error);
+        this.isLoading = false;
+        if (!this.hasPopupBeenShown) {
+          this.showQrCodePopup = true;
+          this.hasPopupBeenShown = true;
+        }
+      }
+    });
+  }
+
   checkForNewVideos() {
     console.log('VERIFICANDO EXISTENCIA DE NOVO VÍDEO');
     this.videosService.getLastUpdatedTimestamp().subscribe(
       (timestamp: number) => {
-        console.log('lastUpdatedTimestamp', this.lastUpdatedTimestamp);
-        console.log('timestamp', timestamp);
         if (this.lastUpdatedTimestamp === null || timestamp > this.lastUpdatedTimestamp) {
           this.lastUpdatedTimestamp = timestamp;
           this.findAll();
@@ -83,17 +115,40 @@ export class CarrosselVideoComponent implements OnInit, OnDestroy {
       next: (results) => {
         this.videosCarregados = results.filter((result) => result != null);
         console.log('Todos os vídeos foram baixados e estão prontos para serem exibidos:', this.videosCarregados);
-        this.showQrCodePopup = true;
-        setTimeout(() => {
-          if (this.ELEMENT_DATA.length > 0) {
-            const firstVideo = this.ELEMENT_DATA[0];
-            this.buscarVideoQrCodeServidor(firstVideo.id);
-            this.playActiveVideo(0); // Reproduzir o primeiro vídeo
+        
+        if (this.ELEMENT_DATA.length > 0) {
+          this.buscarVideoQrCodeServidor(this.ELEMENT_DATA[0].id).subscribe({
+            next: () => {
+              this.isLoading = false;
+              if (!this.hasPopupBeenShown) {
+                this.showQrCodePopup = true;
+                this.hasPopupBeenShown = true;
+              }
+              this.playActiveVideo(0); // Reproduzir o primeiro vídeo
+            },
+            error: () => {
+              this.isLoading = false;
+              if (!this.hasPopupBeenShown) {
+                this.showQrCodePopup = true;
+                this.hasPopupBeenShown = true;
+              }
+            }
+          });
+        } else {
+          this.isLoading = false;
+          if (!this.hasPopupBeenShown) {
+            this.showQrCodePopup = true;
+            this.hasPopupBeenShown = true;
           }
-        }, 10000);
+        }
       },
       error: (err) => {
         console.error('Erro ao baixar um ou mais vídeos:', err);
+        this.isLoading = false;
+        if (!this.hasPopupBeenShown) {
+          this.showQrCodePopup = true;
+          this.hasPopupBeenShown = true;
+        }
       }
     });
   }
@@ -124,25 +179,24 @@ export class CarrosselVideoComponent implements OnInit, OnDestroy {
     );
   }
 
-  buscarVideoQrCodeServidor(id: any) {
-    this.videosService.getQrcodeById(id).subscribe(
-      (blob: Blob) => {
-        console.info('QR Code do vídeo baixado.');
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onload = () => {
-          this.qrCodeUrl = reader.result as string;
-          console.log('QR Code atualizado:', this.qrCodeUrl);
-        };
-      },
-      (error) => {
-        if (error.status === 404) {
-          console.error('QR Code não encontrado no servidor. Por favor, verifique o ID do vídeo.');
-        } else {
-          console.error('Erro ao carregar o QR Code do servidor:', error);
-        }
-      }
-    );
+  buscarVideoQrCodeServidor(id: any): Observable<void> {
+    return new Observable<void>((observer) => {
+      this.videosService.getQrcodeById(id).subscribe({
+        next: (blob: Blob) => {
+          console.info('QR Code do vídeo baixado.');
+          const reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onload = () => {
+            this.qrCodeUrl = reader.result as string;
+            console.log('QR Code atualizado:', this.qrCodeUrl);
+            observer.next();
+            observer.complete();
+          };
+          reader.onerror = () => observer.error('Erro ao converter QR Code');
+        },
+        error: (error) => observer.error(error)
+      });
+    });
   }
 
   onSlideChange(event: any) {
@@ -156,7 +210,7 @@ export class CarrosselVideoComponent implements OnInit, OnDestroy {
     videos.forEach((video, index) => {
       if (video instanceof HTMLVideoElement) {
         video.pause();
-        video.currentTime = 0; // Reiniciar o vídeo para o início
+        video.currentTime = 0;
         console.log(`Vídeo ${index} pausado`);
       }
     });
@@ -175,7 +229,7 @@ export class CarrosselVideoComponent implements OnInit, OnDestroy {
     const activeVideo = activeSlide?.querySelector('video');
     if (activeVideo instanceof HTMLVideoElement) {
       console.log(`Tentando reproduzir vídeo no slide ${index}: ${activeVideo.src}`);
-      if (activeVideo.readyState >= 2) { // HAVE_CURRENT_DATA ou superior
+      if (activeVideo.readyState >= 2) {
         activeVideo.play().catch((error) => {
           console.error(`Erro ao reproduzir vídeo no slide ${index}:`, error);
         });
@@ -196,6 +250,11 @@ export class CarrosselVideoComponent implements OnInit, OnDestroy {
     }
   }
 
+  closeQrCodePopup() {
+    this.showQrCodePopup = false;
+    this.hasPopupBeenShown = true; // Garante que o popup não será reaberto
+  }
+
   ngOnDestroy() {
     if (this.intervalId) {
       clearInterval(this.intervalId);
@@ -206,37 +265,6 @@ export class CarrosselVideoComponent implements OnInit, OnDestroy {
       if (video instanceof HTMLVideoElement) {
         video.pause();
         video.currentTime = 0;
-      }
-    });
-  }
-
-  closeQrCodePopup() {
-    this.showQrCodePopup = false;
-  }
-
-  loadLogo(): void {
-    this.configService.getLogo().subscribe({
-      next: (blob) => {
-        const url = URL.createObjectURL(blob);
-        this.logoUrl = url;
-        console.log('Logo carregada com sucesso:', url);
-      },
-      error: (error) => {
-        console.error('Erro ao carregar a logo:', error);
-      }
-    });
-  }
-
-  loadQrCode(): void {
-    this.configService.getQrCode().subscribe({
-      next: (blob) => {
-        const url = URL.createObjectURL(blob);
-        this.qrCodeUrl = url;
-        this.qrCodeBut = url;
-        console.log('QR Code carregado com sucesso:', url);
-      },
-      error: (error) => {
-        console.error('Erro ao carregar o QR Code:', error);
       }
     });
   }

@@ -31,6 +31,7 @@ swiper-slide video {
 
 .qrcode {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
@@ -108,6 +109,39 @@ swiper-slide video {
   z-index: 1001;
 }
 
+.qrcode-text {
+  color: #FFF;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #000;
+  color: #FFF;
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #FFF;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* Estilos para dispositivos móveis */
 @media (max-width: 768px) {
   .carousel-slide {
@@ -151,5 +185,10 @@ swiper-slide video {
 
   .close-button {
     font-size: 40px;
+  }
+
+  .qrcode-text {
+    font-size: 0.75rem;
+    margin-bottom: 0.4rem;
   }
 }

@@ -2,11 +2,11 @@
   width: 100%;
   min-height: 100vh;
   padding: 3rem;
-  overflow: hidden; /* Adicionado para evitar o scroll */
+  overflow: hidden;
 }
 
 .carousel-slide {
-margin-top: 5rem;
+  margin-top: 5rem;
 }
 
 swiper-container {
@@ -29,11 +29,10 @@ swiper-slide img {
 
 .qrcode {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-
   padding: 2rem;
-
   margin-bottom: 6rem;
 }
 
@@ -55,7 +54,6 @@ swiper-slide img {
 
 .logo-velejar img {
   width: 13rem;
-
   margin: 0;
   padding: 0;
 }
@@ -78,80 +76,117 @@ swiper-slide img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   text-align: center;
-  position: relative; /* Adicionado para que o botão seja posicionado em relação a este elemento */
+  position: relative;
 }
 
 .popup-content h4 {
-color: #FFF;
-font-size: 2rem;
+  color: #FFF;
+  font-size: 2rem;
 }
 
 .qrcode-popup {
-width: 400px;
-border: 5px solid #FFF;
+  width: 400px;
+  border: 5px solid #FFF;
 }
 
 .logo-henet-popup {
-width: 300px;
-margin-top: 25px;
+  width: 300px;
+  margin-top: 25px;
 }
 
 .close-button {
-  position: fixed; /* Modificado de absolute para fixed */
+  position: fixed;
   top: 10px;
   right: 10px;
   background: none;
   border: none;
   font-size: 60px;
   cursor: pointer;
-  color: white; /* Adiciona cor ao botão para maior visibilidade */
-  z-index: 1001; /* Garante que o botão esteja acima de outros elementos */
+  color: white;
+  z-index: 1001;
+}
+
+.qrcode-text {
+  color: #FFF;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #000;
+  color: #FFF;
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #FFF;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Estilos para dispositivos móveis */
 @media (max-width: 768px) {
-.carousel-slide {
-  margin-top: 2rem; /* Reduz o espaçamento superior */
-}
+  .carousel-slide {
+    margin-top: 2rem;
+  }
 
-swiper-slide {
-  width: 100%; /* Ajusta a largura do slide para preencher a tela */
-  height: auto; /* Ajusta a altura automaticamente */
-}
+  swiper-slide {
+    width: 100%;
+    height: auto;
+  }
 
-.qrcode {
-  padding: 1rem;
-  margin-bottom: 3rem; /* Reduz o espaçamento inferior */
-}
+  .qrcode {
+    padding: 1rem;
+    margin-bottom: 3rem;
+  }
 
-.qrcode img {
-  width: 200px; /* Reduz o tamanho do QR code */
-}
+  .qrcode img {
+    width: 200px;
+  }
 
-.logo-velejar p {
-  font-size: 0.8rem; /* Reduz o tamanho da fonte */
-}
+  .logo-velejar p {
+    font-size: 0.8rem;
+  }
 
-.logo-velejar img {
-  width: 6rem; /* Reduz o tamanho da logo */
-}
+  .logo-velejar img {
+    width: 6rem;
+  }
 
-.popup-content h4 {
-  font-size: 1.5rem; /* Reduz o tamanho do texto no popup */
-}
+  .popup-content h4 {
+    font-size: 1.5rem;
+  }
 
-.qrcode-popup {
-  width: 300px; /* Reduz o tamanho do QR code no popup */
-}
+  .qrcode-popup {
+    width: 300px;
+  }
 
-.logo-henet-popup {
-  width: 200px;
-  margin-top: 25px;
-}
+  .logo-henet-popup {
+    width: 200px;
+    margin-top: 25px;
+  }
 
-.close-button {
-  font-size: 40px; /* Reduz o tamanho do botão de fechar */
-}
+  .close-button {
+    font-size: 40px;
+  }
+
+  .qrcode-text {
+    font-size: 0.75rem;
+    margin-bottom: 0.4rem;
+  }
 }
