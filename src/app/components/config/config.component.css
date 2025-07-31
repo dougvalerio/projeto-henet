@@ -1,4 +1,4 @@
-/* Centralizando todo o container horizontal e verticalmente */
+/* Centralizando o container horizontal e verticalmente */
 html, body {
   height: 100%;
   margin: 0;
@@ -13,35 +13,38 @@ html, body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 3rem;
+  padding: 2rem; /* Padding reduzido para melhor ajuste em mobile */
+  box-sizing: border-box;
 }
 
 h1 {
   color: #FFF;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem; /* Margem reduzida para mobile */
   font-family: Arial, sans-serif;
+  font-size: 2.5rem; /* Tamanho padrão para telas maiores */
 }
 
 h2 {
   color: #FFF;
-  font-size: 2.5rem;
-  margin-top: 2rem;
+  font-size: 2rem; /* Tamanho padrão menor */
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-/* Estilizando o container de cada input */
+/* Estilizando cada container de input */
 .file-input-container {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 500px; /* Max-width reduzido */
 }
 
 .file-input-container h2 {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 /* Estilos para o botão de upload */
@@ -49,36 +52,11 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36px;
-  padding: 30px 60px;
-  margin-right: 20px;
-  width: 450px;
-  background-color: transparent;
-  color: #FFF;
-  border: 3px solid #FFF;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.custom-file-input i {
-  margin-right: 18px;
-  font-size: 42px;
-}
-
-.custom-file-input:hover {
-  background-color: #FFF;
-  color: #000;
-}
-
-/* Estilos para o botão de visualização (reduzido) */
-.view-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  padding: 20px 30px;
-  width: 100px;
+  font-size: 1.5rem; /* Tamanho de fonte menor */
+  padding: 1rem 2rem;
+  margin-right: 1rem;
+  width: 100%;
+  max-width: 350px; /* Largura padrão menor */
   background-color: transparent;
   color: #FFF;
   border: 2px solid #FFF;
@@ -87,8 +65,34 @@ h2 {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.custom-file-input i {
+  margin-right: 0.75rem;
+  font-size: 1.75rem;
+}
+
+.custom-file-input:hover {
+  background-color: #FFF;
+  color: #000;
+}
+
+/* Estilos para o botão de visualização */
+.view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  width: 70px; /* Largura padrão menor */
+  background-color: transparent;
+  color: #FFF;
+  border: 2px solid #FFF;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 .view-btn i {
-  font-size: 28px;
+  font-size: 1.25rem;
   margin-right: 0;
 }
 
@@ -121,16 +125,16 @@ input[type="file"] {
 .modal-content {
   position: relative;
   margin: auto;
-  padding: 2.5rem;
+  padding: 1.5rem;
   background-color: white;
   border-radius: 8px;
-  width: 80%;
-  max-width: 600px;
+  width: 90%; /* Ajustado para mobile */
+  max-width: 500px; /* Max-width menor */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30rem;
+  margin-top: 10rem; /* Ajustado para telas verticais */
 }
 
 img {
@@ -144,7 +148,7 @@ img {
   top: 10px;
   right: 15px;
   color: #555;
-  font-size: 70px;
+  font-size: 2rem; /* Botão de fechar menor */
   font-weight: bold;
   cursor: pointer;
   transition: color 0.3s;
@@ -157,78 +161,141 @@ img {
   cursor: pointer;
 }
 
-/* Media Query para tablets e dispositivos móveis */
+/* Media Query para tablets (max-width: 1080px) */
 @media (max-width: 1080px) {
-  .custom-file-input {
-    font-size: 24px;
-    padding: 20px 40px;
-    margin-right: 15px;
-    width: 300px;
-    border-radius: 20px;
-    border: 2px solid #FFF;
-  }
-
-  .custom-file-input i {
-    margin-right: 12px;
-    font-size: 28px;
-  }
-
-  .view-btn {
-    font-size: 18px;
-    padding: 15px 20px;
-    width: 80px;
-    border-radius: 15px;
-    border: 2px solid #FFF;
-  }
-
-  .view-btn i {
-    font-size: 22px;
-  }
-
-  h2 {
+  h1 {
     font-size: 2rem;
-  }
-}
-
-/* Media Query para dispositivos móveis menores (ex.: celulares com largura < 600px) */
-@media (max-width: 600px) {
-  .custom-file-input {
-    font-size: 18px;
-    padding: 15px 30px;
-    margin-right: 10px;
-    width: 250px;
-    border-radius: 15px;
-    border: 2px solid #FFF;
-  }
-
-  .custom-file-input i {
-    margin-right: 10px;
-    font-size: 22px;
-  }
-
-  .view-btn {
-    font-size: 16px;
-    padding: 10px 15px;
-    width: 60px;
-    border-radius: 10px;
-    border: 2px solid #FFF;
-  }
-
-  .view-btn i {
-    font-size: 18px;
   }
 
   h2 {
     font-size: 1.5rem;
   }
 
+  .container {
+    padding: 1.5rem;
+  }
+
   .file-input-container {
-    flex-direction: column;
-    align-items: flex-start;
+    max-width: 400px;
   }
 
   .custom-file-input {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem;
+    max-width: 250px;
+    border-radius: 15px;
+    border: 2px solid #FFF;
+  }
+
+  .custom-file-input i {
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  .view-btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    width: 60px;
+    border-radius: 12px;
+  }
+
+  .view-btn i {
+    font-size: 1rem;
+  }
+}
+
+/* Media Query para dispositivos móveis menores (max-width: 600px) */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    margin: 0;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .file-input-container {
+    flex-direction: row; /* Mantém botões lado a lado */
+    flex-wrap: nowrap; /* Impede quebras de linha */
+    align-items: center;
+    max-width: 100%;
+    gap: 0.5rem; /* Espaçamento entre botões */
+  }
+
+  .custom-file-input {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    max-width: 70%; /* Ajusta para ocupar menos espaço */
     margin-right: 0;
-    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+
+  .custom-file-input i {
+    margin-right: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .view-btn {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    width: 50px;
+    border-radius: 10px;
+  }
+
+  .view-btn i {
+    font-size: 0.875rem;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin-top: 5rem; /* Ajustado para telas menores */
+    padding: 1rem;
+  }
+
+  .close-btn {
+    font-size: 1.5rem;
+  }
+}
+
+/* Media Query para telas muito pequenas (max-width: 400px) */
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  .file-input-container {
+    flex-direction: row; /* Mantém botões lado a lado */
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .custom-file-input {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    max-width: 65%; /* Ainda mais compacto */
+  }
+
+  .custom-file-input i {
+    font-size: 1rem;
+  }
+
+  .view-btn {
+    width: 45px;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .view-btn i {
+    font-size: 0.75rem;
   }
 }

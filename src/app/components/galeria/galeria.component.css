@@ -38,12 +38,18 @@ mat-grid-tile:hover {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  overflow-y: auto; /* Permite rolagem vertical em telas menores */
 }
 
 .popup-content {
   position: relative;
   max-width: 80%;
   max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .popup-content img {
@@ -51,51 +57,118 @@ mat-grid-tile:hover {
   height: auto;
   object-fit: contain;
   border: 5px solid white;
+  max-height: 50vh; /* Limita a altura da imagem principal */
 }
 
 .qrcode {
-  margin-top: 50px;
-  width: 70%;  /* O QR code será 20% da largura da imagem principal */
-  max-width: 350px;  /* Limite máximo de 150px para garantir que não fique muito grande */
+  margin-top: 20px;
+  width: 70%;
+  max-width: 200px; /* Reduz o tamanho máximo do QR code em mobile */
   height: auto;
   object-fit: contain;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border: 3px solid white;  /* Adiciona uma borda ao QR code */
+  border: 3px solid white;
 }
 
 .delete-button {
   display: block;
-  margin: 20px auto 0 auto;  /* Centraliza horizontalmente abaixo do QR code */
+  margin: 20px auto 0 auto;
   background: none;
   border: none;
   padding: 0;
-
-  margin-top: 5rem;
-
   cursor: pointer;
 }
 
 .delete-button img {
-  width: 5rem;  /* Define o tamanho pequeno para o botão */
+  width: 3rem; /* Tamanho menor para o ícone da lixeira */
   border: none;
 }
 
 .close-button {
-  position: fixed; /* Fixar no canto superior direito da tela */
-  top: 20px;      /* Distância do topo da tela */
-  right: 20px;    /* Distância da borda direita da tela */
+  position: fixed;
+  top: 20px;
+  right: 20px;
   padding: 10px;
   background: none;
   border: none;
   color: white;
-  font-size: 2.5rem; /* Aumentar o tamanho do "X" */
+  font-size: 2rem; /* Tamanho ajustado para mobile */
   cursor: pointer;
   outline: none;
-  z-index: 1100; /* Certifique-se de que o botão esteja acima do popup */
+  z-index: 1100;
 }
 
 .close-button:hover {
   color: red;
+}
+
+/* Media query para dispositivos móveis (telas até 768px) */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1rem; /* Reduz o padding em telas menores */
+  }
+
+  .galeria {
+    margin-top: 5rem; /* Reduz a margem superior */
+  }
+
+  .popup-content {
+    max-width: 90%; /* Aumenta a largura do popup em mobile */
+    max-height: 90%; /* Aumenta a altura disponível */
+    padding: 10px;
+  }
+
+  .popup-content img {
+    max-height: 40vh; /* Reduz a altura máxima da imagem principal */
+  }
+
+  .qrcode {
+    width: 50%; /* Reduz a largura do QR code */
+    max-width: 150px; /* Tamanho ainda menor para telas pequenas */
+    margin-top: 15px;
+  }
+
+  .delete-button {
+    margin-top: 15px;
+  }
+
+  .delete-button img {
+    width: 2.5rem; /* Tamanho ainda menor para o ícone da lixeira */
+  }
+
+  .close-button {
+    font-size: 1.5rem; /* Reduz o tamanho do botão de fechar */
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/* Media query para telas muito pequenas (ex.: smartphones com menos de 480px) */
+@media screen and (max-width: 480px) {
+  .popup-content {
+    max-width: 95%;
+    max-height: 95%;
+  }
+
+  .popup-content img {
+    max-height: 35vh; /* Ainda menor para telas muito pequenas */
+  }
+
+  .qrcode {
+    width: 40%;
+    max-width: 120px;
+    margin-top: 10px;
+  }
+
+  .delete-button img {
+    width: 2rem;
+  }
+
+  .close-button {
+    font-size: 1.2rem;
+    top: 8px;
+    right: 8px;
+  }
 }

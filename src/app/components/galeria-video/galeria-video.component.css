@@ -38,12 +38,18 @@ mat-grid-tile:hover {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  overflow-y: auto; /* Permite rolagem vertical em telas menores */
 }
 
 .popup-content {
   position: relative;
   max-width: 80%;
   max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .popup-content video {
@@ -51,12 +57,13 @@ mat-grid-tile:hover {
   height: auto;
   object-fit: contain;
   border: 5px solid white;
+  max-height: 50vh; /* Limita a altura do vídeo principal */
 }
 
 .qrcode {
-  margin-top: 50px;
+  margin-top: 20px;
   width: 70%;
-  max-width: 350px;
+  max-width: 200px; /* Reduz o tamanho máximo do QR code */
   height: auto;
   object-fit: contain;
   display: block;
@@ -71,12 +78,11 @@ mat-grid-tile:hover {
   background: none;
   border: none;
   padding: 0;
-  margin-top: 5rem;
   cursor: pointer;
 }
 
 .delete-button img {
-  width: 5rem;
+  width: 3rem; /* Tamanho menor para o ícone da lixeira */
   border: none;
 }
 
@@ -88,7 +94,7 @@ mat-grid-tile:hover {
   background: none;
   border: none;
   color: white;
-  font-size: 2.5rem;
+  font-size: 2rem; /* Tamanho ajustado para mobile */
   cursor: pointer;
   outline: none;
   z-index: 1100;
@@ -96,4 +102,73 @@ mat-grid-tile:hover {
 
 .close-button:hover {
   color: red;
+}
+
+/* Media query para dispositivos móveis (telas até 768px) */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1rem; /* Reduz o padding em telas menores */
+  }
+
+  .galeria {
+    margin-top: 5rem; /* Reduz a margem superior */
+  }
+
+  .popup-content {
+    max-width: 90%; /* Aumenta a largura do popup em mobile */
+    max-height: 90%; /* Aumenta a altura disponível */
+    padding: 10px;
+  }
+
+  .popup-content video {
+    max-height: 40vh; /* Reduz a altura máxima do vídeo principal */
+  }
+
+  .qrcode {
+    width: 50%; /* Reduz a largura do QR code */
+    max-width: 150px; /* Tamanho ainda menor para telas pequenas */
+    margin-top: 15px;
+  }
+
+  .delete-button {
+    margin-top: 15px;
+  }
+
+  .delete-button img {
+    width: 2.5rem; /* Tamanho ainda menor para o ícone da lixeira */
+  }
+
+  .close-button {
+    font-size: 1.5rem; /* Reduz o tamanho do botão de fechar */
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/* Media query para telas muito pequenas (ex.: smartphones com menos de 480px) */
+@media screen and (max-width: 480px) {
+  .popup-content {
+    max-width: 95%;
+    max-height: 95%;
+  }
+
+  .popup-content video {
+    max-height: 35vh; /* Ainda menor para telas muito pequenas */
+  }
+
+  .qrcode {
+    width: 40%;
+    max-width: 120px;
+    margin-top: 10px;
+  }
+
+  .delete-button img {
+    width: 2rem;
+  }
+
+  .close-button {
+    font-size: 1.2rem;
+    top: 8px;
+    right: 8px;
+  }
 }
