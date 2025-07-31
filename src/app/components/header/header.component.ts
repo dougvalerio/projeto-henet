@@ -16,18 +16,18 @@ export class HeaderComponent {
   constructor(private configService: ConfigService) {}
 
   ngOnInit(): void {
-    this.loadQrCode();
+    this.loadLogo(); 
   }
-  
-  loadQrCode(): void {
-    this.configService.getQrCode().subscribe({
+
+  loadLogo(): void {
+    this.configService.getLogo().subscribe({ 
       next: (blob) => {
         const url = URL.createObjectURL(blob);
         this.logoUrl = url;
-        console.log('QR Code carregado com sucesso:', url);
+        console.log('Logo carregada com sucesso:', url);
       },
       error: (error) => {
-        console.error('Erro ao carregar o QR Code:', error);
+        console.error('Erro ao carregar a logo:', error);
       }
     });
   }
