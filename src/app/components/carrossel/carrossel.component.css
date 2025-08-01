@@ -1,34 +1,36 @@
 .container {
   width: 100%;
   min-height: 100vh;
-  padding: 3rem;
+  padding: 1rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 }
 
 .carousel-slide {
-  margin-top: 5rem;
-  width: 720px;
-  height: 1080px;
-  max-width: 100%;
+  margin-top: 2rem;
+  width: 540px; /* 90% da largura da tela (600px) */
+  height: 810px; /* Mantém proporção 9:16 para imagens verticais */
+  max-width: 90%;
+  max-height: 70vh; /* Limita a altura para caber na tela */
 }
 
 swiper-container {
   width: 100%;
   height: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 720px;
-  height: 1080px;
-  max-width: 100%;
-  max-height: 100%;
+  width: 540px;
+  height: 810px;
+  max-width: 90%;
+  max-height: 70vh;
   overflow: hidden;
 }
 
@@ -36,7 +38,7 @@ swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Usa contain para exibir a imagem completa */
+  object-fit: contain;
   object-position: center;
 }
 
@@ -45,12 +47,12 @@ swiper-slide img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .qrcode img {
-  width: 300px;
+  width: 150px; /* Reduzido para caber melhor na tela */
 }
 
 .logo-velejar {
@@ -58,15 +60,16 @@ swiper-slide img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .logo-velejar p {
   color: #FFF;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .logo-velejar img {
-  width: 13rem;
+  width: 8rem; /* Reduzido para caber na tela */
   margin: 0;
   padding: 0;
 }
@@ -95,17 +98,17 @@ swiper-slide img {
 
 .popup-content h4 {
   color: #FFF;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .qrcode-popup {
-  width: 400px;
+  width: 250px; /* Reduzido para caber na tela */
   border: 5px solid #FFF;
 }
 
 .logo-henet-popup {
-  width: 300px;
-  margin-top: 25px;
+  width: 150px; /* Reduzido para caber na tela */
+  margin-top: 15px;
 }
 
 .close-button {
@@ -114,7 +117,7 @@ swiper-slide img {
   right: 10px;
   background: none;
   border: none;
-  font-size: 60px;
+  font-size: 40px;
   cursor: pointer;
   color: white;
   z-index: 1001;
@@ -122,7 +125,7 @@ swiper-slide img {
 
 .qrcode-text {
   color: #FFF;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   text-align: center;
   margin-bottom: 0.5rem;
   width: 100%;
@@ -154,23 +157,23 @@ swiper-slide img {
 }
 
 /* Estilos para dispositivos móveis */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .container {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .carousel-slide {
-    margin-top: 2rem;
+    margin-top: 1rem;
     width: 100%;
     height: auto;
-    max-height: 80vh; /* Limita a altura em mobile */
+    max-height: 60vh; /* Reduzido para caber na vertical */
   }
 
   swiper-slide {
     width: 100%;
     height: auto;
-    aspect-ratio: 9 / 16; /* Mantém proporção vertical em mobile */
-    max-height: 80vh;
+    aspect-ratio: 9 / 16;
+    max-height: 60vh;
   }
 
   swiper-slide img {
@@ -180,41 +183,41 @@ swiper-slide img {
   }
 
   .qrcode {
-    padding: 1rem;
-    margin-bottom: 3rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .qrcode img {
-    width: 200px;
+    width: 150px; /* Ajustado para mobile */
   }
 
   .logo-velejar p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .logo-velejar img {
-    width: 6rem;
+    width: 5rem; /* Ajustado para mobile */
   }
 
   .popup-content h4 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   .qrcode-popup {
-    width: 300px;
+    width: 200px; /* Ajustado para mobile */
   }
 
   .logo-henet-popup {
-    width: 200px;
-    margin-top: 25px;
+    width: 120px; /* Ajustado para mobile */
+    margin-top: 10px;
   }
 
   .close-button {
-    font-size: 40px;
+    font-size: 30px;
   }
 
   .qrcode-text {
-    font-size: 0.75rem;
-    margin-bottom: 0.4rem;
+    font-size: 0.65rem;
+    margin-bottom: 0.3rem;
   }
 }
