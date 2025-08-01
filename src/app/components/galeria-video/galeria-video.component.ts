@@ -67,7 +67,7 @@ export class GaleriaVideoComponent implements OnInit {
     });
   }
 
-  openVideoPopup(videoSrc: SafeUrl, videoId: number): void {
+   openVideoPopup(videoSrc: SafeUrl, videoId: number): void {
     this.selectedVideoSrc = videoSrc;
     this.videoAtualId = videoId;
     this.isPopupOpen = true;
@@ -102,6 +102,47 @@ export class GaleriaVideoComponent implements OnInit {
       this.snackBar.open('Erro ao carregar QR code da empresa!', 'Fechar', { duration: 5000 });
     });
   }
+
+  // carregarVideos(): void {
+  //   // Simulação de vídeos falsos para testes
+  //   const fakeVideos = [
+  //     { id: 1, url: 'https://www.w3schools.com/html/mov_bbb.mp4' }, // Vídeo de exemplo 1
+  //     { id: 2, url: 'https://www.w3schools.com/html/movie.mp4' },  // Vídeo de exemplo 2
+  //     { id: 3, url: 'https://www.w3schools.com/html/mov_bbb.mp4' }, // Vídeo de exemplo 3 (repetido para teste)
+  //   ];
+
+  //   this.videos = [];
+  //   this.videosIds = [];
+
+  //   fakeVideos.forEach((video, index) => {
+  //     setTimeout(() => {
+  //       // Adiciona a URL do vídeo como SafeUrl
+  //       this.videos.push(this.sanitizer.bypassSecurityTrustUrl(video.url));
+  //       this.videosIds.push(video.id);
+  //     }, index * 100);
+  //   });
+  // }
+
+  // openVideoPopup(videoSrc: SafeUrl, videoId: number): void {
+  //   this.selectedVideoSrc = videoSrc;
+  //   this.videoAtualId = videoId;
+  //   this.isPopupOpen = true;
+  //   console.log('ID do Vídeo:', videoId);
+
+  //   // Simulação de QR code do vídeo
+  //   const fakeQrcodeUrl = 'https://via.placeholder.com/150x150.png?text=QR+Video'; // Imagem de placeholder
+  //   this.selectedQrcodeSrc = this.sanitizer.bypassSecurityTrustUrl(fakeQrcodeUrl);
+
+  //   // Simulação de QR code da empresa
+  //   const fakeCompanyQrcodeUrl = 'https://via.placeholder.com/150x150.png?text=QR+Empresa'; // Imagem de placeholder
+  //   this.companyQrcodeSrc = this.sanitizer.bypassSecurityTrustUrl(fakeCompanyQrcodeUrl);
+  //   this.showCompanyQrcode = true;
+
+  //   // Após 5 segundos, ocultar QR code da empresa
+  //   this.qrcodeTimeout = setTimeout(() => {
+  //     this.showCompanyQrcode = false;
+  //   }, 5000);
+  // }
 
   closeVideoPopup(): void {
     this.isPopupOpen = false;

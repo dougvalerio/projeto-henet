@@ -66,13 +66,12 @@ mat-grid-tile:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 65px;
 }
 
 .qrcode-text {
   color: white;
   font-size: 1rem;
-  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -87,7 +86,7 @@ mat-grid-tile:hover {
 }
 
 .popup-content img.qrcode:not(.qrcode-container .qrcode) {
-  margin-top: 20px; /* Espaçamento no topo para o QR code do vídeo */
+  margin-top: 65px; /* Espaçamento no topo para o QR code do vídeo */
 }
 
 .delete-button {
@@ -141,6 +140,11 @@ mat-grid-tile:hover {
   .popup-content video {
     max-height: 40vh;
     transform: scale(1.15); /* Mantém o aumento de 15% em mobile */
+    margin-bottom: 20px;
+  }
+
+  .qrcode-container {
+    margin-top: 30px; /* Espaçamento ajustado para mobile */
   }
 
   .qrcode {
@@ -149,7 +153,7 @@ mat-grid-tile:hover {
   }
 
   .popup-content img.qrcode:not(.qrcode-container .qrcode) {
-    margin-top: 15px; /* Espaçamento ajustado para o QR code do vídeo em mobile */
+    margin-top: 65px; /* Espaçamento ajustado para o QR code do vídeo em mobile */
   }
 
   .qrcode-text {
@@ -161,7 +165,7 @@ mat-grid-tile:hover {
   }
 
   .delete-button img {
-    width: 2rem;
+    width: 3rem;
   }
 
   .close-button {

@@ -52,13 +52,13 @@ mat-grid-tile:hover {
   box-sizing: border-box;
 }
 
-.popup-content img {
+.popup-content img:not(.qrcode) {
   width: 100%;
   height: auto;
   object-fit: contain;
   border: 5px solid white;
   max-height: 50vh;
-  transform: scale(1.15); /* Aumenta a imagem em 15% */
+  transform: scale(1.15);
   transform-origin: center;
 }
 
@@ -66,18 +66,17 @@ mat-grid-tile:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 65px;
 }
 
 .qrcode-text {
   color: white;
   font-size: 1rem;
-  margin-bottom: 10px;
   text-align: center;
 }
 
 .qrcode {
-  width: 150px; /* Mesmo tamanho para QR code da empresa e da imagem */
+  width: 150px;
   height: auto;
   object-fit: contain;
   display: block;
@@ -87,7 +86,7 @@ mat-grid-tile:hover {
 }
 
 .popup-content img.qrcode:not(.qrcode-container .qrcode) {
-  margin: 20px 0; /* Espaçamento ajustado para o QR code da imagem */
+  margin-top: 65px;
 }
 
 .delete-button {
@@ -100,7 +99,13 @@ mat-grid-tile:hover {
 }
 
 .delete-button img {
-  width: 2.5rem;
+  width: 2rem;
+  border: none !important; /* Garante que nenhuma borda seja aplicada */
+  outline: none; /* Remove qualquer contorno */
+}
+
+.delete-button img {
+  width: 2rem;
   border: none;
 }
 
@@ -138,18 +143,23 @@ mat-grid-tile:hover {
     padding: 10px;
   }
 
-  .popup-content img {
+  .popup-content img:not(.qrcode) {
     max-height: 40vh;
-    transform: scale(1.15); /* Mantém o aumento de 15% em mobile */
+    transform: scale(1.15);
+    margin-bottom: 20px;
+  }
+
+  .qrcode-container {
+    margin-top: 30px;
   }
 
   .qrcode {
-    width: 120px; /* Mesmo tamanho para QR code da empresa e da imagem em mobile */
+    width: 120px;
     margin-top: 15px;
   }
 
   .popup-content img.qrcode:not(.qrcode-container .qrcode) {
-    margin: 15px 0; /* Espaçamento ajustado para o QR code da imagem em mobile */
+    margin-top: 65px;
   }
 
   .qrcode-text {
@@ -157,6 +167,7 @@ mat-grid-tile:hover {
   }
 
   .delete-button {
+    width: 3rem;
     margin-top: 15px;
   }
 
