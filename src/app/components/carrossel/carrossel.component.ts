@@ -24,8 +24,8 @@ export class CarrosselComponent implements OnInit {
   ELEMENT_DATA: Imagem[] = [];
   imagensCarregadas: string[] = [];
 
-  qrCodeBut = '../../../assets/qrcode-pz.jpg';
-  currentQrCodeUrl = '../../../assets/qrcode-pz.jpg';
+  qrCodeBut = '../../../assets/velejar.jpg';
+  currentQrCodeUrl = '../../../assets/velejar.jpg';
   lastUpdatedTimestamp: number | null = null;
 
   private intervalId: number | null = null;

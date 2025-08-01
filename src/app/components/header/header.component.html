@@ -3,34 +3,32 @@
     <div class="div-logo">
       <img [src]="logoUrl || '../../../assets/logo-velejar.png'" alt="Logo" class="logo">
     </div>
-
     <div class="menu-btn" (click)="toggleMenu()">
       <span class="menu-icon">&#9776;</span>
     </div>
-
     <div class="navegacao" [class.active]="menuActive">
       <div class="close-btn" (click)="toggleMenu()">✕</div>
       <ul class="menu-list">
-        <li><i class="fas fa-home"></i><a routerLink="/home">Home</a></li>
+        <li><i class="fas fa-home"></i><a routerLink="/home" (click)="closeMenu()">Home</a></li>
         <li class="dropdown">
           <i class="fas fa-images desktop-icon"></i><a class="dropdown-toggle">Carrossel</a>
           <ul class="dropdown-menu">
-            <li><i class="fas fa-image"></i><a routerLink="/carrossel">Carrossel Fotos</a></li>
-            <li><i class="fas fa-video"></i><a routerLink="/carrossel-video">Carrossel Vídeos</a></li>
+            <li><i class="fas fa-image"></i><a routerLink="/carrossel" (click)="closeMenu()">Carrossel Fotos</a></li>
+            <li><i class="fas fa-video"></i><a routerLink="/carrossel-video" (click)="closeMenu()">Carrossel Vídeos</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <i class="fas fa-photo-video desktop-icon"></i><a class="dropdown-toggle">Galeria</a>
           <ul class="dropdown-menu">
-            <li><i class="fas fa-image"></i><a routerLink="/galeria">Galeria Fotos</a></li>
-            <li><i class="fas fa-video"></i><a routerLink="/galeria-video">Galeria Vídeos</a></li>
+            <li><i class="fas fa-image"></i><a routerLink="/galeria" (click)="closeMenu()">Galeria Fotos</a></li>
+            <li><i class="fas fa-video"></i><a routerLink="/galeria-video" (click)="closeMenu()">Galeria Vídeos</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <i class="fas fa-ellipsis-h desktop-icon"></i><a class="dropdown-toggle">Outros</a>
           <ul class="dropdown-menu">
-            <li><i class="fas fa-qrcode"></i><a routerLink="/qrcode">QR Code</a></li>
-            <li><i class="fas fa-comment"></i><a routerLink="/feedback">Feedback</a></li>
+            <li><i class="fas fa-qrcode"></i><a routerLink="/qrcode" (click)="closeMenu()">QR Code</a></li>
+            <li><i class="fas fa-comment"></i><a routerLink="/feedback" (click)="closeMenu()">Feedback</a></li>
           </ul>
         </li>
       </ul>

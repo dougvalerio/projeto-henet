@@ -38,7 +38,7 @@ mat-grid-tile:hover {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  overflow-y: auto; /* Permite rolagem vertical em telas menores */
+  overflow-y: auto;
 }
 
 .popup-content {
@@ -57,19 +57,36 @@ mat-grid-tile:hover {
   height: auto;
   object-fit: contain;
   border: 5px solid white;
-  max-height: 50vh; /* Limita a altura do vídeo principal */
+  max-height: 50vh;
+}
+
+.qrcode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.qrcode-text {
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .qrcode {
-  margin-top: 20px;
   width: 70%;
-  max-width: 200px; /* Reduz o tamanho máximo do QR code */
+  max-width: 200px;
   height: auto;
   object-fit: contain;
   display: block;
   margin-left: auto;
   margin-right: auto;
   border: 3px solid white;
+}
+
+.popup-content img.qrcode:not(.qrcode-container .qrcode) {
+  margin-top: 20px; /* Espaçamento no topo para o QR code do vídeo */
 }
 
 .delete-button {
@@ -82,7 +99,7 @@ mat-grid-tile:hover {
 }
 
 .delete-button img {
-  width: 3rem; /* Tamanho menor para o ícone da lixeira */
+  width: 3rem;
   border: none;
 }
 
@@ -94,7 +111,7 @@ mat-grid-tile:hover {
   background: none;
   border: none;
   color: white;
-  font-size: 2rem; /* Tamanho ajustado para mobile */
+  font-size: 2rem;
   cursor: pointer;
   outline: none;
   z-index: 1100;
@@ -107,27 +124,35 @@ mat-grid-tile:hover {
 /* Media query para dispositivos móveis (telas até 768px) */
 @media screen and (max-width: 768px) {
   .container {
-    padding: 1rem; /* Reduz o padding em telas menores */
+    padding: 1rem;
   }
 
   .galeria {
-    margin-top: 5rem; /* Reduz a margem superior */
+    margin-top: 5rem;
   }
 
   .popup-content {
-    max-width: 90%; /* Aumenta a largura do popup em mobile */
-    max-height: 90%; /* Aumenta a altura disponível */
+    max-width: 90%;
+    max-height: 90%;
     padding: 10px;
   }
 
   .popup-content video {
-    max-height: 40vh; /* Reduz a altura máxima do vídeo principal */
+    max-height: 40vh;
   }
 
   .qrcode {
-    width: 50%; /* Reduz a largura do QR code */
-    max-width: 150px; /* Tamanho ainda menor para telas pequenas */
+    width: 50%;
+    max-width: 150px;
     margin-top: 15px;
+  }
+
+  .popup-content img.qrcode:not(.qrcode-container .qrcode) {
+    margin-top: 15px; /* Espaçamento ajustado para o QR code do vídeo em mobile */
+  }
+
+  .qrcode-text {
+    font-size: 1rem;
   }
 
   .delete-button {
@@ -135,11 +160,11 @@ mat-grid-tile:hover {
   }
 
   .delete-button img {
-    width: 2.5rem; /* Tamanho ainda menor para o ícone da lixeira */
+    width: 2.5rem;
   }
 
   .close-button {
-    font-size: 1.5rem; /* Reduz o tamanho do botão de fechar */
+    font-size: 1.5rem;
     top: 10px;
     right: 10px;
   }
@@ -153,13 +178,21 @@ mat-grid-tile:hover {
   }
 
   .popup-content video {
-    max-height: 35vh; /* Ainda menor para telas muito pequenas */
+    max-height: 35vh;
   }
 
   .qrcode {
     width: 40%;
     max-width: 120px;
     margin-top: 10px;
+  }
+
+  .popup-content img.qrcode:not(.qrcode-container .qrcode) {
+    margin-top: 10px; /* Espaçamento ajustado para o QR code do vídeo em telas menores */
+  }
+
+  .qrcode-text {
+    font-size: 0.9rem;
   }
 
   .delete-button img {

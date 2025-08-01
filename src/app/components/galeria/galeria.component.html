@@ -12,9 +12,17 @@
     <div class="popup-content">
       <button class="close-button" (click)="closeImagePopup()">✕</button>
       <img [src]="selectedImageSrc" alt="Imagem ampliada">
-      <img *ngIf="selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">  <!-- Imagem do QR code -->
+
+      <!-- Exibir QR code da empresa com texto -->
+      <div *ngIf="showCompanyQrcode && companyQrcodeSrc" class="qrcode-container">
+        <p class="qrcode-text">Nos siga no Instagram:</p>
+        <img [src]="companyQrcodeSrc" alt="QR Code Empresa" class="qrcode">
+      </div>
+
+      <!-- Exibir QR code da foto -->
+      <img *ngIf="!showCompanyQrcode && selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">
 
       <button class="delete-button" (click)="deleteImagePopup()"><img src="../../../assets/lixeira.png" alt=""></button>
     </div>
   </div>
-</div>  
+</div>

@@ -16,11 +16,11 @@ export class HeaderComponent {
   constructor(private configService: ConfigService) {}
 
   ngOnInit(): void {
-    this.loadLogo(); 
+    this.loadLogo();
   }
 
   loadLogo(): void {
-    this.configService.getLogo().subscribe({ 
+    this.configService.getLogo().subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
         this.logoUrl = url;
@@ -34,5 +34,9 @@ export class HeaderComponent {
 
   toggleMenu() {
     this.menuActive = !this.menuActive;
+  }
+
+  closeMenu() {
+    this.menuActive = false;
   }
 }

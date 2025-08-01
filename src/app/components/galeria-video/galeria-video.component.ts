@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
 import { VideosService } from '../../services/videos.service';
+import { ConfigService } from '../../services/config.service'; // Importando o ConfigService
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Video } from '../../models/video';
 import { map } from 'rxjs';
@@ -18,12 +19,16 @@ export class GaleriaVideoComponent implements OnInit {
   isPopupOpen = false;
   selectedVideoSrc: SafeUrl | null = null;
   selectedQrcodeSrc: SafeUrl | null = null;
+  companyQrcodeSrc: SafeUrl | null = null; // QR code da empresa
+  showCompanyQrcode = false; // Controla exibição do QR code da empresa
   videos: SafeUrl[] = [];
   videosIds: number[] = [];
   videoAtualId: number | null = null;
+  private qrcodeTimeout: any; // Para gerenciar o timeout
 
   constructor(
     private videosService: VideosService,
+    private configService: ConfigService, // Injetando ConfigService
     private sanitizer: DomSanitizer,
     private snackBar: MatSnackBar
   ) {}
@@ -38,7 +43,6 @@ export class GaleriaVideoComponent implements OnInit {
         videos.sort((a, b) => b.id - a.id);
         this.videos = [];
         this.videosIds = [];
-        
         videos.forEach((video, index) => {
           setTimeout(() => {
             this.videosService.getVideo(video.id).pipe(
@@ -67,9 +71,9 @@ export class GaleriaVideoComponent implements OnInit {
     this.selectedVideoSrc = videoSrc;
     this.videoAtualId = videoId;
     this.isPopupOpen = true;
-
     console.log('ID do Vídeo:', videoId);
 
+    // Carregar QR code do vídeo
     this.videosService.getQrcodeById(videoId).subscribe({
       next: (qrcodeBlob: Blob) => {
         const objectURL = URL.createObjectURL(qrcodeBlob);
@@ -79,8 +83,23 @@ export class GaleriaVideoComponent implements OnInit {
       error: (err) => {
         console.error(`Erro ao carregar QR code do vídeo com ID ${videoId}:`, err);
         this.snackBar.open('Erro ao carregar QR code!', 'Fechar', { duration: 5000 });
-        this.selectedQrcodeSrc = null; // Garante que o QR code não seja exibido em caso de erro
+        this.selectedQrcodeSrc = null;
       }
+    });
+
+    // Carregar QR code da empresa
+    this.configService.getQrCode().subscribe((companyQrcodeBlob: Blob) => {
+      const objectURL = URL.createObjectURL(companyQrcodeBlob);
+      this.companyQrcodeSrc = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      this.showCompanyQrcode = true; // Mostrar QR code da empresa
+
+      // Após 5 segundos, ocultar QR code da empresa
+      this.qrcodeTimeout = setTimeout(() => {
+        this.showCompanyQrcode = false;
+      }, 5000);
+    }, (err) => {
+      console.error('Erro ao carregar QR code da empresa:', err);
+      this.snackBar.open('Erro ao carregar QR code da empresa!', 'Fechar', { duration: 5000 });
     });
   }
 
@@ -88,7 +107,12 @@ export class GaleriaVideoComponent implements OnInit {
     this.isPopupOpen = false;
     this.selectedVideoSrc = null;
     this.selectedQrcodeSrc = null;
+    this.companyQrcodeSrc = null; // Limpar QR code da empresa
+    this.showCompanyQrcode = false;
     this.videoAtualId = null;
+    if (this.qrcodeTimeout) {
+      clearTimeout(this.qrcodeTimeout); // Cancelar timeout se fechar o popup
+    }
   }
 
   deleteVideoPopup(): void {

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
-import { FotosService } from '../../services/fotos.service';  // Importando o serviço
+import { FotosService } from '../../services/fotos.service';
+import { ConfigService } from '../../services/config.service'; // Importando o ConfigService
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Imagem } from '../../models/imagem';
 import { forkJoin, map } from 'rxjs';
@@ -17,12 +18,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class GaleriaComponent implements OnInit {
   isPopupOpen = false;
   selectedImageSrc: SafeUrl | null = null;
-  selectedQrcodeSrc: SafeUrl | null = null;  // Adicionando variável para o QR code
-  imagens: SafeUrl[] = [];  // Array para armazenar URLs seguras das imagens
-  imagensIds: number[] = [];  // Array para armazenar os IDs das imagens
-  fotoAtualId: number | null = null;  // Armazena o ID da foto atual
+  selectedQrcodeSrc: SafeUrl | null = null;
+  companyQrcodeSrc: SafeUrl | null = null; // QR code da empresa
+  showCompanyQrcode = false; // Controla exibição do QR code da empresa
+  imagens: SafeUrl[] = [];
+  imagensIds: number[] = [];
+  fotoAtualId: number | null = null;
+  private qrcodeTimeout: any; // Para gerenciar o timeout
 
-  constructor(private fotosService: FotosService, private sanitizer: DomSanitizer,private snackBar: MatSnackBar) {}
+  constructor(
+    private fotosService: FotosService,
+    private configService: ConfigService, // Injetando ConfigService
+    private sanitizer: DomSanitizer,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.carregarImagens();
@@ -31,10 +40,8 @@ export class GaleriaComponent implements OnInit {
   carregarImagens(): void {
     this.fotosService.getAllImagens().subscribe((fotos: Imagem[]) => {
       fotos.sort((a, b) => b.id - a.id);
-  
       this.imagens = [];
       this.imagensIds = [];
-      
       fotos.forEach((foto, index) => {
         setTimeout(() => {
           this.fotosService.getImagem(foto.id).pipe(
@@ -44,51 +51,60 @@ export class GaleriaComponent implements OnInit {
               this.imagensIds.push(foto.id);
             })
           ).subscribe();
-        }, index * 100);  // Atraso de 100ms entre as requisições
+        }, index * 100);
       });
     });
   }
-  
 
   openImagePopup(imageSrc: SafeUrl, fotoId: number): void {
     this.selectedImageSrc = imageSrc;
-    this.fotoAtualId = fotoId;  // Armazena o ID da foto atual
+    this.fotoAtualId = fotoId;
     this.isPopupOpen = true;
-
-    // Exibe no console o ID da foto ao abrir o popup
     console.log('ID da Foto:', fotoId);
 
-    // Carregar o QR code baseado no ID da foto
+    // Carregar QR code da foto
     this.fotosService.getQrcodeById(fotoId).subscribe((qrcodeBlob: Blob) => {
       const objectURL = URL.createObjectURL(qrcodeBlob);
       this.selectedQrcodeSrc = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-      
-      // Exibe no console o ID do QR code após carregá-lo
       console.log('ID do QR Code:', fotoId);
+    });
+
+    // Carregar QR code da empresa
+    this.configService.getQrCode().subscribe((companyQrcodeBlob: Blob) => {
+      const objectURL = URL.createObjectURL(companyQrcodeBlob);
+      this.companyQrcodeSrc = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      this.showCompanyQrcode = true; // Mostrar QR code da empresa
+
+      // Após 5 segundos, ocultar QR code da empresa
+      this.qrcodeTimeout = setTimeout(() => {
+        this.showCompanyQrcode = false;
+      }, 5000);
     });
   }
 
   closeImagePopup(): void {
     this.isPopupOpen = false;
     this.selectedImageSrc = null;
-    this.selectedQrcodeSrc = null;  // Limpar a URL do QR code
-    this.fotoAtualId = null;  // Limpar o ID da foto atual
+    this.selectedQrcodeSrc = null;
+    this.companyQrcodeSrc = null; // Limpar QR code da empresa
+    this.showCompanyQrcode = false;
+    this.fotoAtualId = null;
+    if (this.qrcodeTimeout) {
+      clearTimeout(this.qrcodeTimeout); // Cancelar timeout se fechar o popup
+    }
   }
 
   deleteImagePopup(): void {
     this.fotosService.delete(this.fotoAtualId).subscribe(() => {
-      this.snackBar.open('Imagem excluida com sucesso!', 'Fechar', {
+      this.snackBar.open('Imagem excluída com sucesso!', 'Fechar', {
         duration: 5000,
-      });     
+      });
       this.closeImagePopup();
       this.carregarImagens();
     }, ex => {
-      
       this.snackBar.open('Erro ao excluir a imagem!', 'Fechar', {
         duration: 5000,
-      });    
-      
-    })
-
+      });
+    });
   }
 }

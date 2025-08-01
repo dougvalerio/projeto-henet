@@ -16,7 +16,17 @@
       <video [src]="selectedVideoSrc" controls autoplay muted>
         Seu navegador não suporta o elemento de vídeo.
       </video>
-      <img *ngIf="selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">
+
+      <!-- Exibir QR code da empresa com texto -->
+      <div *ngIf="showCompanyQrcode && companyQrcodeSrc" class="qrcode-container">
+        <p class="qrcode-text">Nos siga no Instagram:</p>
+        <img [src]="companyQrcodeSrc" alt="QR Code Empresa" class="qrcode">
+      </div>
+
+      <!-- Exibir QR code do vídeo -->
+      <img *ngIf="!showCompanyQrcode && selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">
+
       <button class="delete-button" (click)="deleteVideoPopup()"><img src="../../../assets/lixeira.png" alt="Botão de excluir"></button>
     </div>
   </div>
+</div>
