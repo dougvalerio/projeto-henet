@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CommonModule } from '@angular/common';
 import { VideosService } from '../../services/videos.service';
-import { ConfigService } from '../../services/config.service'; // Importando o ConfigService
+import { ConfigService } from '../../services/config.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Video } from '../../models/video';
 import { map } from 'rxjs';
@@ -17,18 +17,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class GaleriaVideoComponent implements OnInit {
   isPopupOpen = false;
+  isDeleteConfirmationOpen = false;
   selectedVideoSrc: SafeUrl | null = null;
   selectedQrcodeSrc: SafeUrl | null = null;
-  companyQrcodeSrc: SafeUrl | null = null; // QR code da empresa
-  showCompanyQrcode = false; // Controla exibição do QR code da empresa
+  companyQrcodeSrc: SafeUrl | null = null;
+  showCompanyQrcode = false;
   videos: SafeUrl[] = [];
   videosIds: number[] = [];
   videoAtualId: number | null = null;
-  private qrcodeTimeout: any; // Para gerenciar o timeout
+  private qrcodeTimeout: any;
 
   constructor(
     private videosService: VideosService,
-    private configService: ConfigService, // Injetando ConfigService
+    private configService: ConfigService,
     private sanitizer: DomSanitizer,
     private snackBar: MatSnackBar
   ) {}
@@ -67,13 +68,12 @@ export class GaleriaVideoComponent implements OnInit {
     });
   }
 
-   openVideoPopup(videoSrc: SafeUrl, videoId: number): void {
+  openVideoPopup(videoSrc: SafeUrl, videoId: number): void {
     this.selectedVideoSrc = videoSrc;
     this.videoAtualId = videoId;
     this.isPopupOpen = true;
     console.log('ID do Vídeo:', videoId);
 
-    // Carregar QR code do vídeo
     this.videosService.getQrcodeById(videoId).subscribe({
       next: (qrcodeBlob: Blob) => {
         const objectURL = URL.createObjectURL(qrcodeBlob);
@@ -87,13 +87,11 @@ export class GaleriaVideoComponent implements OnInit {
       }
     });
 
-    // Carregar QR code da empresa
     this.configService.getQrCode().subscribe((companyQrcodeBlob: Blob) => {
       const objectURL = URL.createObjectURL(companyQrcodeBlob);
       this.companyQrcodeSrc = this.sanitizer.bypassSecurityTrustUrl(objectURL);
-      this.showCompanyQrcode = true; // Mostrar QR code da empresa
+      this.showCompanyQrcode = true;
 
-      // Após 5 segundos, ocultar QR code da empresa
       this.qrcodeTimeout = setTimeout(() => {
         this.showCompanyQrcode = false;
       }, 5000);
@@ -103,70 +101,40 @@ export class GaleriaVideoComponent implements OnInit {
     });
   }
 
-  // carregarVideos(): void {
-  //   // Simulação de vídeos falsos para testes
-  //   const fakeVideos = [
-  //     { id: 1, url: 'https://www.w3schools.com/html/mov_bbb.mp4' }, // Vídeo de exemplo 1
-  //     { id: 2, url: 'https://www.w3schools.com/html/movie.mp4' },  // Vídeo de exemplo 2
-  //     { id: 3, url: 'https://www.w3schools.com/html/mov_bbb.mp4' }, // Vídeo de exemplo 3 (repetido para teste)
-  //   ];
-
-  //   this.videos = [];
-  //   this.videosIds = [];
-
-  //   fakeVideos.forEach((video, index) => {
-  //     setTimeout(() => {
-  //       // Adiciona a URL do vídeo como SafeUrl
-  //       this.videos.push(this.sanitizer.bypassSecurityTrustUrl(video.url));
-  //       this.videosIds.push(video.id);
-  //     }, index * 100);
-  //   });
-  // }
-
-  // openVideoPopup(videoSrc: SafeUrl, videoId: number): void {
-  //   this.selectedVideoSrc = videoSrc;
-  //   this.videoAtualId = videoId;
-  //   this.isPopupOpen = true;
-  //   console.log('ID do Vídeo:', videoId);
-
-  //   // Simulação de QR code do vídeo
-  //   const fakeQrcodeUrl = 'https://via.placeholder.com/150x150.png?text=QR+Video'; // Imagem de placeholder
-  //   this.selectedQrcodeSrc = this.sanitizer.bypassSecurityTrustUrl(fakeQrcodeUrl);
-
-  //   // Simulação de QR code da empresa
-  //   const fakeCompanyQrcodeUrl = 'https://via.placeholder.com/150x150.png?text=QR+Empresa'; // Imagem de placeholder
-  //   this.companyQrcodeSrc = this.sanitizer.bypassSecurityTrustUrl(fakeCompanyQrcodeUrl);
-  //   this.showCompanyQrcode = true;
-
-  //   // Após 5 segundos, ocultar QR code da empresa
-  //   this.qrcodeTimeout = setTimeout(() => {
-  //     this.showCompanyQrcode = false;
-  //   }, 5000);
-  // }
-
   closeVideoPopup(): void {
     this.isPopupOpen = false;
+    this.isDeleteConfirmationOpen = false;
     this.selectedVideoSrc = null;
     this.selectedQrcodeSrc = null;
-    this.companyQrcodeSrc = null; // Limpar QR code da empresa
+    this.companyQrcodeSrc = null;
     this.showCompanyQrcode = false;
     this.videoAtualId = null;
     if (this.qrcodeTimeout) {
-      clearTimeout(this.qrcodeTimeout); // Cancelar timeout se fechar o popup
+      clearTimeout(this.qrcodeTimeout);
     }
   }
 
-  deleteVideoPopup(): void {
-    if (this.videoAtualId) {
+  openDeleteConfirmationPopup(): void {
+    this.isDeleteConfirmationOpen = true;
+  }
+
+  closeDeleteConfirmationPopup(): void {
+    this.isDeleteConfirmationOpen = false;
+  }
+
+  confirmDelete(): void {
+    if (this.videoAtualId !== null) {
       this.videosService.delete(this.videoAtualId).subscribe({
         next: () => {
           this.snackBar.open('Vídeo excluído com sucesso!', 'Fechar', { duration: 5000 });
+          this.closeDeleteConfirmationPopup();
           this.closeVideoPopup();
           this.carregarVideos();
         },
         error: (err) => {
           console.error('Erro ao excluir vídeo:', err);
           this.snackBar.open('Erro ao excluir o vídeo!', 'Fechar', { duration: 5000 });
+          this.closeDeleteConfirmationPopup();
         }
       });
     }

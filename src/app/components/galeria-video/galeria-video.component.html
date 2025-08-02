@@ -26,7 +26,22 @@
       <!-- Exibir QR code do vídeo -->
       <img *ngIf="!showCompanyQrcode && selectedQrcodeSrc" [src]="selectedQrcodeSrc" alt="QR Code" class="qrcode">
 
-      <button class="delete-button" (click)="deleteVideoPopup()"><img src="../../../assets/lixeira.png" alt="Botão de excluir"></button>
+      <button class="delete-button" (click)="openDeleteConfirmationPopup()"><img src="../../../assets/lixeira.png" alt="Botão de excluir"></button>
+    </div>
+  </div>
+
+  <!-- Popup de confirmação de exclusão -->
+  <div *ngIf="isDeleteConfirmationOpen" class="delete-confirmation-popup">
+    <div class="delete-confirmation-content">
+      <button class="delete-close-button" (click)="closeDeleteConfirmationPopup()">✕</button>
+      <div class="delete-confirmation-body">
+        <span class="exclamation-icon">!</span>
+        <p>Tem certeza que deseja excluir o vídeo?</p>
+      </div>
+      <div class="delete-confirmation-actions">
+        <button class="confirm-button" (click)="confirmDelete()">Sim</button>
+        <button class="cancel-button" (click)="closeDeleteConfirmationPopup()">Não</button>
+      </div>
     </div>
   </div>
 </div>

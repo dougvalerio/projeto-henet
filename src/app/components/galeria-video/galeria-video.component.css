@@ -58,7 +58,7 @@ mat-grid-tile:hover {
   object-fit: contain;
   border: 5px solid white;
   max-height: 50vh;
-  transform: scale(1.15); /* Aumenta o vídeo em 15% */
+  transform: scale(1.15);
   transform-origin: center;
 }
 
@@ -76,7 +76,7 @@ mat-grid-tile:hover {
 }
 
 .qrcode {
-  width: 150px; /* Mesmo tamanho para QR code da empresa e do vídeo */
+  width: 150px;
   height: auto;
   object-fit: contain;
   display: block;
@@ -86,7 +86,7 @@ mat-grid-tile:hover {
 }
 
 .popup-content img.qrcode:not(.qrcode-container .qrcode) {
-  margin-top: 65px; /* Espaçamento no topo para o QR code do vídeo */
+  margin-top: 65px;
 }
 
 .delete-button {
@@ -121,6 +121,101 @@ mat-grid-tile:hover {
   color: red;
 }
 
+/* Estilos para o popup de confirmação de exclusão */
+.delete-confirmation-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.delete-confirmation-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 300px;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.delete-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.delete-close-button:hover {
+  color: red;
+}
+
+.delete-confirmation-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.exclamation-icon {
+  font-size: 2rem;
+  color: #ff4444;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.delete-confirmation-body p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.delete-confirmation-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.confirm-button,
+.cancel-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.confirm-button {
+  background-color: #ff4444;
+  color: white;
+}
+
+.confirm-button:hover {
+  background-color: #cc0000;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background-color: #999;
+}
+
 /* Media query para dispositivos móveis (telas até 600px) */
 @media screen and (max-width: 600px) {
   .container {
@@ -139,21 +234,21 @@ mat-grid-tile:hover {
 
   .popup-content video {
     max-height: 40vh;
-    transform: scale(1.15); /* Mantém o aumento de 15% em mobile */
+    transform: scale(1.15);
     margin-bottom: 20px;
   }
 
   .qrcode-container {
-    margin-top: 30px; /* Espaçamento ajustado para mobile */
+    margin-top: 30px;
   }
 
   .qrcode {
-    width: 120px; /* Mesmo tamanho para QR code da empresa e do vídeo em mobile */
+    width: 120px;
     margin-top: 15px;
   }
 
   .popup-content img.qrcode:not(.qrcode-container .qrcode) {
-    margin-top: 65px; /* Espaçamento ajustado para o QR code do vídeo em mobile */
+    margin-top: 65px;
   }
 
   .qrcode-text {
@@ -172,5 +267,25 @@ mat-grid-tile:hover {
     font-size: 1.2rem;
     top: 8px;
     right: 8px;
+  }
+
+  .delete-confirmation-content {
+    width: 90%;
+    max-width: 280px;
+    padding: 15px;
+  }
+
+  .exclamation-icon {
+    font-size: 1.5rem;
+  }
+
+  .delete-confirmation-body p {
+    font-size: 0.9rem;
+  }
+
+  .confirm-button,
+  .cancel-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
 }
