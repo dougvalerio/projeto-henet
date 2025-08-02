@@ -19,7 +19,7 @@ export class CarrosselComponent implements OnInit {
   logoUrl: string | null = null;
   qrCodeUrl: string | null = null;
   isLoading: boolean = true;
-  hasPopupBeenShown: boolean = false; // Nova variável para controlar exibição única do popup
+  showQrCodePopup = false;
 
   ELEMENT_DATA: Imagem[] = [];
   imagensCarregadas: string[] = [];
@@ -27,11 +27,11 @@ export class CarrosselComponent implements OnInit {
   qrCodeBut = '../../../assets/velejar.jpg';
   currentQrCodeUrl = '../../../assets/velejar.jpg';
   lastUpdatedTimestamp: number | null = null;
+  lastImageId: number | null = null;
 
   private intervalId: number | null = null;
 
   fotos: any[] = [];
-  showQrCodePopup = false;
 
   constructor(
     private fotosService: FotosService,
@@ -71,13 +71,15 @@ export class CarrosselComponent implements OnInit {
 
         // Processa imagens
         this.ELEMENT_DATA = imagens.sort((a, b) => b.id - a.id);
-        this.baixarImagens();
+        if (this.ELEMENT_DATA.length > 0) {
+          this.lastImageId = this.ELEMENT_DATA[0].id; // Armazena o ID da imagem mais recente
+        }
+        this.baixarImagens(true); // Exibe o popup na primeira carga
       },
       error: (error) => {
         console.error('Erro ao carregar dados iniciais:', error);
         this.isLoading = false;
-        this.showQrCodePopup = true;
-        this.hasPopupBeenShown = true; // Marca popup como exibido mesmo em caso de erro
+        this.showQrCodePopup = true; // Exibe o popup em caso de erro
       }
     });
   }
@@ -101,8 +103,18 @@ export class CarrosselComponent implements OnInit {
   findAll() {
     this.fotosService.getCarrosselImagens().subscribe(
       resposta => {
-        this.ELEMENT_DATA = resposta.sort((a, b) => b.id - a.id);
-        this.baixarImagens();
+        const novasImagens = resposta.sort((a, b) => b.id - a.id);
+        const newLastImageId = novasImagens.length > 0 ? novasImagens[0].id : null;
+
+        // Verifica se há uma nova imagem (ID diferente do último carregado)
+        if (newLastImageId !== null && newLastImageId !== this.lastImageId) {
+          this.ELEMENT_DATA = novasImagens;
+          this.lastImageId = newLastImageId; // Atualiza o ID da última imagem
+          this.baixarImagens(true); // Passa true para indicar que é uma nova imagem
+        } else {
+          this.ELEMENT_DATA = novasImagens;
+          this.baixarImagens(false); // Sem nova imagem, não exibe popup
+        }
       },
       error => {
         console.error('Erro ao buscar imagens:', error);
@@ -110,7 +122,7 @@ export class CarrosselComponent implements OnInit {
     );
   }
 
-  baixarImagens() {
+  baixarImagens(showPopupForNewImage: boolean = false) {
     const observables = this.ELEMENT_DATA.map(imagem => this.buscarFotoServidor(imagem.id));
     forkJoin(observables).subscribe({
       next: (results) => {
@@ -120,34 +132,26 @@ export class CarrosselComponent implements OnInit {
           this.buscarFotoQrCodeServidor(this.ELEMENT_DATA[0].id).subscribe({
             next: () => {
               this.isLoading = false;
-              if (!this.hasPopupBeenShown) {
-                this.showQrCodePopup = true; // Exibe o popup apenas na primeira vez
-                this.hasPopupBeenShown = true; // Marca como exibido
+              if (showPopupForNewImage) {
+                this.showQrCodePopup = true; // Exibe o popup para nova imagem ou carga inicial
               }
             },
             error: () => {
               this.isLoading = false;
-              if (!this.hasPopupBeenShown) {
-                this.showQrCodePopup = true; // Exibe o popup apenas na primeira vez
-                this.hasPopupBeenShown = true; // Marca como exibido
+              if (showPopupForNewImage) {
+                this.showQrCodePopup = true; // Exibe o popup mesmo em caso de erro
               }
             }
           });
         } else {
           this.isLoading = false;
-          if (!this.hasPopupBeenShown) {
-            this.showQrCodePopup = true; // Exibe o popup apenas na primeira vez
-            this.hasPopupBeenShown = true; // Marca como exibido
-          }
+          this.showQrCodePopup = true; // Exibe o popup se não houver imagens
         }
       },
       error: (err) => {
         console.error('Erro ao baixar imagens:', err);
         this.isLoading = false;
-        if (!this.hasPopupBeenShown) {
-          this.showQrCodePopup = true; // Exibe o popup apenas na primeira vez
-          this.hasPopupBeenShown = true; // Marca como exibido
-        }
+        this.showQrCodePopup = true; // Exibe o popup em caso de erro
       }
     });
   }
@@ -210,7 +214,6 @@ export class CarrosselComponent implements OnInit {
 
   closeQrCodePopup() {
     this.showQrCodePopup = false;
-    this.hasPopupBeenShown = true; // Garante que o popup não será reaberto
   }
 
   ngOnDestroy() {
